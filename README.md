@@ -9,17 +9,19 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868
 
 # Setup environment - on summit login node
 
-singularity pull docker://haproxy
+    singularity pull docker://haproxy
 
-# Get compute node 
+## Get compute node 
 
-# Standard production run
-bsub -Is -P ARD143 -nnodes 1 -W 2:00 $SHELL
+    # Standard production run
+
+    bsub -Is -P ARD143 -nnodes 1 -W 2:00 $SHELL
 
 Note: replace ARD143 with subproject number
 
-# Debug node
-bsub -Is -q debug -P ARD143 -nnodes 1 -W 1:00 $SHELL
+## Debug node
+
+    bsub -Is -q debug -P ARD143 -nnodes 1 -W 1:00 $SHELL
 
 # Modify both models.conf and models.py to be consistent with your models
 
