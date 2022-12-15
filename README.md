@@ -19,20 +19,20 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868
 
 Modify both models.conf and models.py to be consistent with your models
 
-4. Launch processes From launch/batch node on Summit:
+4. Launch processes From launch/batch node on Summit::
 
-    # launch the TFS servers
-    ./1_start_tfs_servers.sh
+        # launch the TFS servers
+        ./1_start_tfs_servers.sh
 
-    # start the load balancer  
-    ./2_start_load_balancers.sh
+        # start the load balancer  
+        ./2_start_load_balancers.sh
 
-    # run the benchmark sweep
-    ./3_run_benchmarks.sh # currently this is using tfs_grpc_client.py
-                          # but should be changed to using benchmark.py in the future
+        # run the benchmark sweep
+        ./3_run_benchmarks.sh # currently this is using tfs_grpc_client.py
+                              # but should be changed to using benchmark.py in the future
 
-    # run an individual benchmark
-    python benchmark.py -b 32 -m lwmodel -n 1024
+        # run an individual benchmark
+        python benchmark.py -b 32 -m lwmodel -n 1024
 
 5. Production run. First update parameters in batch.lsf, then submit to LSF scheduler:
 
