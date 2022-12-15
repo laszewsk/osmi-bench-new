@@ -18,13 +18,6 @@ if [[ -d "/sw/summit" ]]; then
     LAUNCHG="jsrun -n1 -g1"
     LAUNCH_PER_NODE="jsrun -n$NUM_HOSTS -r1 -a1 -c1 --smpiargs off"
   fi
-elif [[ "$BC_HOST" == "scout" ]]; then
-  echo "using SCOUT configuration"
-  source ~/anaconda3/bin/activate wml170
-  set_cuda_visible_devices=true
-  NGPUS=`nvidia-smi --query-gpu=name --format=csv,noheader | wc -l`
-  [[ -n "$LSB_DJOB_RANKFILE" ]] && NUM_HOSTS=$(cat $LSB_DJOB_RANKFILE|uniq|wc -l)
-  module load singularity
 else
   echo "ERROR: this HPC is not supported"
   exit 1
