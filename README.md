@@ -7,25 +7,19 @@ Brewer, Wesley, Daniel Martinez, Mathew Boyer, Dylan Jude, Andy Wissink, Ben Par
 
 Available from https://ieeexplore.ieee.org/abstract/document/9652868
 
-# Setup environment - on summit login node
+1. Setup environment - on summit login node
 
     singularity pull docker://haproxy
 
-## Get compute node 
-
-    # Standard production run
+2. Interactive usage:
 
     bsub -Is -P ARD143 -nnodes 1 -W 2:00 $SHELL
 
-Note: replace ARD143 with subproject number
+    **Note: replace ARD143 with subproject number**
 
-## Debug node
+Modify both models.conf and models.py to be consistent with your models
 
-    bsub -Is -q debug -P ARD143 -nnodes 1 -W 1:00 $SHELL
-
-# Modify both models.conf and models.py to be consistent with your models
-
-# From launch/batch node
+4. Launch processes From launch/batch node on Summit:
 
     # launch the TFS servers
     ./1_start_tfs_servers.sh
@@ -40,5 +34,6 @@ Note: replace ARD143 with subproject number
     # run an individual benchmark
     python benchmark.py -b 32 -m lwmodel -n 1024
 
-# Submit batch job
-bsub batch.lsf 
+5. Production run. First update parameters in batch.lsf, then submit to LSF scheduler:
+
+    bsub batch.lsf 
