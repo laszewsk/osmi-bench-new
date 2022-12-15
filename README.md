@@ -46,7 +46,7 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868
 
     Output of timings should be in file results.csv.
 
-4. Launch processes From launch/batch node on Summit:
+4. Launch processes (from launch/batch node)
 
     If running on more than one GPU, will need to launch up multiple TF Serving processes, each one bound to a specific GPU. This is what the script 1_start_tfs_servers.sh will do. 2_start_load_balancers.sh will launch HAProxy load balancers on each compute node. 3_run_benchmark.sh automates the launch of multiple concurrent client threads for a sweep of batch sizes. 
 
