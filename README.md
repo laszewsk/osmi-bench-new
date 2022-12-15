@@ -1,18 +1,29 @@
-# setup - on summit login node
+# OSMI-Bench
+
+The Open Surrogate Model Inference (OSMI) Benchmark is a distributed inference benchmark
+for machine-learned surrogate models and is described in the following paper:
+
+Brewer, Wesley, Daniel Martinez, Mathew Boyer, Dylan Jude, Andy Wissink, Ben Parsons, Junqi Yin, and Valentine Anantharaj. "Production Deployment of Machine-Learned Rotorcraft Surrogate Models on HPC." In 2021 IEEE/ACM Workshop on Machine Learning in High Performance Computing Environments (MLHPC), pp. 21-32. IEEE, 2021.
+
+Available from https://ieeexplore.ieee.org/abstract/document/9652868
+
+# Setup environment - on summit login node
 
 singularity pull docker://haproxy
 
-# get compute node 
+# Get compute node 
 
-# standard production run
+# Standard production run
 bsub -Is -P ARD143 -nnodes 1 -W 2:00 $SHELL
 
-# debug node
+Note: replace ARD143 with subproject number
+
+# Debug node
 bsub -Is -q debug -P ARD143 -nnodes 1 -W 1:00 $SHELL
 
-# modify both models.conf and models.py to be consistent with your models
+# Modify both models.conf and models.py to be consistent with your models
 
-# from launch/batch node
+# From launch/batch node
 
     # launch the TFS servers
     ./1_start_tfs_servers.sh
@@ -27,6 +38,5 @@ bsub -Is -q debug -P ARD143 -nnodes 1 -W 1:00 $SHELL
     # run an individual benchmark
     python benchmark.py -b 32 -m lwmodel -n 1024
 
-# submit batch job
-bsub batch.lsf   # Summit
-bsub < batch.lsf # SCOUT
+# Submit batch job
+bsub batch.lsf 
