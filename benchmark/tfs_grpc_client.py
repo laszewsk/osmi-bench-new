@@ -43,7 +43,8 @@ models = {
           'cnn_cpsurf44m': isd('input1', (args.batch, 101, 82, 9), np.float32),
           'tcnn_surfml_212m': isd('input_1', (args.batch, 2, 101, 82, 9), np.float32),
           'swmodel': isd('dense_input', (args.batch, 3778), np.float32),
-          'lwmodel': isd('dense_input', (args.batch, 1426), np.float32)
+          'lwmodel': isd('dense_input', (args.batch, 1426), np.float32),
+          'mymodel': isd('dense_input', (args.batch, 1426), np.float32)
          }
 
 times = list()

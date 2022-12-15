@@ -9,17 +9,46 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868
 
 1. Setup environment - on Summit login node. Note that this benchmark is currently setup to module load open-ce/1.1.3-py38-0 and cuda/11.0.2. Users on other systems may `pip install -r requirements.txt`. In addition to TensorFlow and gRPC, users also need to install TensorFlow Serving and if wanting to use multiple GPUs may install an HAProxy Singularity container as follows:
 
-        singularity pull docker://haproxy
+        > singularity pull docker://haproxy
 
 2. Interactive usage:
 
-        bsub -Is -P ARD143 -nnodes 1 -W 2:00 $SHELL
+        > bsub -Is -P ARD143 -nnodes 1 -W 2:00 $SHELL
 
     *Note: replace ARD143 with subproject number*
-
     *Modify both models.conf and models.py to be consistent with your models*
 
+3. Preparing model 
+
+    Generate the model in the models directory using:
+
+        > python dense.py
+
+    Check the model output:
+
+        > saved_model_cli show --all --dir mymodel
+
+    Update name and path in models.conf file. Make sure name of model is defined in models parameter in tfs_grpc_client.py. 
+
+    Launch TensorFlow Serving:
+
+        > tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log & 
+
+    Make sure TF Serving started correctly:
+
+        > lsof -i :8500 
+
+    *Should list a process with status LISTEN if working correctly.*
+
+    Send packets to be inference:
+
+        > python tfs_grpc_client.py -m mymodel -b 32 -n 10 localhost:8500
+
+    Output of timings should be in file results.csv.
+
 4. Launch processes From launch/batch node on Summit:
+
+If running on more than one GPU, will need to launch up multiple TF Serving processes, each one bound to a specific GPU. This is what the script 1_start_tfs_servers.sh will do. 2_start_load_balancers.sh will launch HAProxy load balancers on each compute node. 3_run_benchmark.sh automates the launch of multiple concurrent client threads for a sweep of batch sizes. 
 
         # launch the TFS servers
         ./1_start_tfs_servers.sh
