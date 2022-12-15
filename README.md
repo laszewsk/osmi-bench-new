@@ -9,17 +9,17 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868
 
 1. Setup environment - on summit login node
 
-    singularity pull docker://haproxy
+        singularity pull docker://haproxy
 
 2. Interactive usage:
 
-    bsub -Is -P ARD143 -nnodes 1 -W 2:00 $SHELL
+        bsub -Is -P ARD143 -nnodes 1 -W 2:00 $SHELL
 
-    **Note: replace ARD143 with subproject number**
+    *Note: replace ARD143 with subproject number*
 
-Modify both models.conf and models.py to be consistent with your models
+    *Modify both models.conf and models.py to be consistent with your models*
 
-4. Launch processes From launch/batch node on Summit::
+4. Launch processes From launch/batch node on Summit:
 
         # launch the TFS servers
         ./1_start_tfs_servers.sh
@@ -36,4 +36,4 @@ Modify both models.conf and models.py to be consistent with your models
 
 5. Production run. First update parameters in batch.lsf, then submit to LSF scheduler:
 
-    bsub batch.lsf 
+        bsub batch.lsf 
