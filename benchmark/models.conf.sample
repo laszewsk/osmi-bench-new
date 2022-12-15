@@ -1,0 +1,37 @@
+model_config_list: {
+  config: {
+    name: "lineml_fcn3datasets",
+    base_path: "/p/home/whbrewer/1015-1048/models/lineml_fcn3datasets",
+    model_platform: "tensorflow"
+  }, 
+  config: {
+    name: "lineml_fcn_rev9and12",
+    base_path: "/p/home/whbrewer/1015-1048/models/lineml_fcn_rev9and12",
+    model_platform: "tensorflow"
+  }, 
+  config: {
+    name: "4lstm2fcn_8in2out",
+    base_path: "/p/home/whbrewer/1015-1048/models/4lstm2fcn_8in2out",
+    model_platform: "tensorflow"
+  },
+  config: {
+     name: "cnn_cpsurf44m",
+     base_path: "/p/home/whbrewer/1015-1048/models/cnn_cpsurf44m",
+     model_platform: "tensorflow"
+  },
+  config: {
+     name: "tcnn_surfml_212m",
+     base_path: "/p/home/whbrewer/1015-1048/models/tcnn_surfml_212m",
+     model_platform: "tensorflow"
+  },
+  config: {
+     name: "lwmodel",
+     base_path: "/p/home/whbrewer/1015-1048/models/lwmodel",
+     model_platform: "tensorflow"
+  },
+  config: {
+     name: "swmodel",
+     base_path: "/p/home/whbrewer/1015-1048/models/swmodel",
+     model_platform: "tensorflow"
+  }
+}
