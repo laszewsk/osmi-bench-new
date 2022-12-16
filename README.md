@@ -7,6 +7,8 @@ for machine-learned surrogate models and is described in the following paper:
 
 Available from https://ieeexplore.ieee.org/abstract/document/9652868
 
+# Instructions
+
 1. Setup environment - on Summit login node. Note that this benchmark is currently setup to `module load open-ce/1.1.3-py38-0` and `module load cuda/11.0.2`. Users on other systems may `pip install -r requirements.txt`. In addition to TensorFlow and gRPC, users also need to install TensorFlow Serving and if wanting to use multiple GPUs may install an HAProxy Singularity container as follows:
 
         > singularity pull docker://haproxy
