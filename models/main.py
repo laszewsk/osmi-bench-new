@@ -1,9 +1,20 @@
+import argparse
+import importlib
+import numpy as np
+import os
 import tensorflow as tf
+
 from tensorflow import keras
 from tensorflow.keras import layers
-import numpy as np
 
-from medium import build_model
+#from medium import build_model
+
+archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
+print(archs)
+
+parser = argparse.ArgumentParser()
+parser.add_argument('arch', type=str, choices=archs, help='Type of neural network architectures')
+args = parser.parse_args()
 
 # parameters
 samples = 100 
@@ -27,7 +38,8 @@ act_func = 'selu'
 #model.add(layer_func(units, activation=act_func))
 #model.add(layers.Dense(1, activation='sigmoid'))
 
-model = build_model(input_shape)
+#model = build_model(input_shape)
+model = importlib.import_module('archs.' + args.arch).build_model(input_shape)
 model.summary()
 
 # Compile model
