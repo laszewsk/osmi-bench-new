@@ -3,56 +3,58 @@ from tensorflow.keras.layers import Input, MaxPooling2D, Dense, Flatten, Croppin
 from tensorflow.keras.layers import Reshape, Conv2DTranspose, ZeroPadding2D, Conv2D
 
 
-def build_model(input_shape, filters=(3, 3), actfn='elu', padding='same'):
+def build_model(input_shape, af='elu'):
 
-	input_layer1 = Input(shape=input_shape, name='input')
-	pool = (2,2)
+    input_layer = Input(shape=input_shape, name='input')
+    pg = 'same'
+    ks = (3, 3) 
+    ps = (2, 2)
+    st = (1, 1) # strides
 
-	x = Conv2D(32, kernel_size=filters, padding=padding, activation=actfn)(input_layer1)
+    x = Conv2D(32, kernel_size=ks, padding=pg, activation=af)(input_layer)
 
-	x = Conv2D(64, kernel_size=filters, padding=padding, activation=actfn)(x)
-	x = MaxPooling2D(pool_size=pool)(x)
+    x = Conv2D(64, kernel_size=ks, padding=pg, activation=af)(x)
+    x = MaxPooling2D(pool_size=ps)(x)
 
-	x = Conv2D(128, kernel_size=filters, padding=padding, activation=actfn)(x)
-	x = MaxPooling2D(pool_size=pool)(x)
+    x = Conv2D(128, kernel_size=ks, padding=pg, activation=af)(x)
+    x = MaxPooling2D(pool_size=ps)(x)
 
-	x = Conv2D(256, kernel_size=filters, padding=padding, activation=actfn)(x)
-	x = MaxPooling2D(pool_size=(2, 2))(x)
-	x = Cropping2D(cropping=((2, 2), (1, 1)))(x)
+    x = Conv2D(256, kernel_size=ks, padding=pg, activation=af)(x)
+    x = MaxPooling2D(pool_size=(2, 2))(x)
+    x = Cropping2D(cropping=((2, 2), (1, 1)))(x)
 
-	x = Conv2D(512, kernel_size=filters, padding=padding, activation=actfn)(x)
-	x = MaxPooling2D(pool_size=pool)(x)
+    x = Conv2D(512, kernel_size=ks, padding=pg, activation=af)(x)
+    x = MaxPooling2D(pool_size=ps)(x)
 
-	x = Conv2D(1024, kernel_size=filters, padding=padding, activation=actfn)(x)
-	x = MaxPooling2D(pool_size=(4, 4))(x)
+    x = Conv2D(1024, kernel_size=ks, padding=pg, activation=af)(x)
+    x = MaxPooling2D(pool_size=(4, 4))(x)
 
-	flat_units = int(x.shape[3])
+    units = int(x.shape[3])
 
-	x = Flatten()(x)
+    x = Flatten()(x)
 
-	# Dense fully connected regression
-	x = Dense(flat_units, activation=actfn)(x)
+    # Dense fully connected regression
+    x = Dense(units, activation=af)(x)
 
-	# Reshape before decoding
-	x = Reshape((1, 1, flat_units))(x)
-	x = Conv2DTranspose(flat_units, kernel_size=filters, strides=(1, 1), padding=padding, activation=actfn)(x)
-	x = Conv2DTranspose(512, kernel_size=filters, strides=(2, 2), padding=padding, activation=actfn)(x)
-	x = Conv2DTranspose(256, kernel_size=filters, strides=(2, 2), padding=padding, activation=actfn)(x)
-	x = Conv2DTranspose(128, kernel_size=filters, strides=(2, 2), padding=padding, activation=actfn)(x)
-	x = Conv2DTranspose(64, kernel_size=filters, strides=(4, 4), padding=padding, activation=actfn)(x)
-	x = Cropping2D(cropping=((4, 3),(6, 6)))(x)
+    # Reshape before decoding
+    x = Reshape((1, 1, units))(x)
+    x = Conv2DTranspose(units, kernel_size=ks, strides=(1, 1), padding=pg, activation=af)(x)
+    x = Conv2DTranspose(512, kernel_size=ks, strides=(2, 2), padding=pg, activation=af)(x)
+    x = Conv2DTranspose(256, kernel_size=ks, strides=(2, 2), padding=pg, activation=af)(x)
+    x = Conv2DTranspose(128, kernel_size=ks, strides=(2, 2), padding=pg, activation=af)(x)
+    x = Conv2DTranspose(64, kernel_size=ks, strides=(4, 4), padding=pg, activation=af)(x)
+    x = Cropping2D(cropping=((4, 3),(6, 6)))(x)
 
-	x = Conv2DTranspose(32, kernel_size=filters, strides=(2, 2), padding=padding, activation=actfn)(x)
-	x = ZeroPadding2D(padding=((0, 0), (1, 0)))(x)
+    x = Conv2DTranspose(32, kernel_size=ks, strides=(2, 2), padding=pg, activation=af)(x)
+    x = ZeroPadding2D(padding=((0, 0), (1, 0)))(x)
 
-	x = Conv2DTranspose(16, kernel_size=filters, strides=(2, 2), padding=padding, activation=actfn)(x)
-	x = ZeroPadding2D(padding=((1,0),(0,0)))(x)
+    x = Conv2DTranspose(16, kernel_size=ks, strides=(2, 2), padding=pg, activation=af)(x)
+    x = ZeroPadding2D(padding=((1, 0), (0, 0)))(x)
 
-	x = Conv2DTranspose(8, kernel_size=filters, strides=(1, 1), padding=padding, activation=actfn)(x)
-	x = Conv2DTranspose(4, kernel_size=filters, padding=padding, activation=actfn)(x)
-	x = Conv2DTranspose(2, kernel_size=filters, padding=padding, activation=actfn)(x)
+    x = Conv2DTranspose(8, kernel_size=ks, strides=(1, 1), padding=pg, activation=af)(x)
+    x = Conv2DTranspose(4, kernel_size=ks, padding=pg, activation=af)(x)
+    x = Conv2DTranspose(2, kernel_size=ks, padding=pg, activation=af)(x)
 
-	outputs = Conv2DTranspose(1, kernel_size=filters, padding=padding, activation='linear')(x)
+    outputs = Conv2DTranspose(1, kernel_size=ks, padding=pg, activation='linear')(x)
 
-	return Model(inputs=[input_layer1], outputs=[outputs])
-
+    return Model(inputs=[input_layer], outputs=[outputs])

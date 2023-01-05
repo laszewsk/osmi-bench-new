@@ -1,4 +1,4 @@
-"""usage: python main.py medium"""
+"""usage: python train.py medium"""
 import argparse
 import importlib
 import numpy as np
