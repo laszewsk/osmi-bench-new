@@ -24,7 +24,7 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868
 
     Generate the model in the models directory using:
 
-        > python dense.py
+        > python train.py medium
 
     Check the model output:
 
