@@ -43,7 +43,7 @@ def build_model(input_shape, af='elu'):
     x = Conv2DTranspose(256, kernel_size=ks, strides=(2, 2), padding=pg, activation=af)(x)
     x = Conv2DTranspose(128, kernel_size=ks, strides=(2, 2), padding=pg, activation=af)(x)
     x = Conv2DTranspose(64, kernel_size=ks, strides=(4, 4), padding=pg, activation=af)(x)
-    x = Cropping2D(cropping=((4, 3),(6, 6)))(x)
+    x = Cropping2D(cropping=((4, 3), (6, 6)))(x)
 
     x = Conv2DTranspose(32, kernel_size=ks, strides=(2, 2), padding=pg, activation=af)(x)
     x = ZeroPadding2D(padding=((0, 0), (1, 0)))(x)

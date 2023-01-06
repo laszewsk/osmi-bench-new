@@ -21,8 +21,12 @@ epochs = 5
 batch_size = 32
 
 # compute synthetic data for X and Y
-input_shape = (101, 82, 9)
-output_shape = (101, 82)
+# small model
+input_shape = (8, 48)
+output_shape = (2, 12)
+# medium model
+#input_shape = (101, 82, 9)
+#output_shape = (101, 82)
 X = np.random.rand(samples, *input_shape)
 Y = np.random.rand(samples, *output_shape)
 
