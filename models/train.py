@@ -27,6 +27,9 @@ output_shape = (2, 12)
 # medium model
 #input_shape = (101, 82, 9)
 #output_shape = (101, 82)
+# large model
+#input_shape = (2, 101, 82, 9)
+#output_shape = (2, 101, 82, 1)
 X = np.random.rand(samples, *input_shape)
 Y = np.random.rand(samples, *output_shape)
 
