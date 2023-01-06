@@ -1,4 +1,4 @@
-"""usage: python train.py medium"""
+"""usage: python train.py {small|medium|large}"""
 import argparse
 import importlib
 import numpy as np
@@ -8,10 +8,8 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 
-archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
-print(archs)
-
 parser = argparse.ArgumentParser()
+archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
 parser.add_argument('arch', type=str, choices=archs, help='Type of neural network architectures')
 args = parser.parse_args()
 
