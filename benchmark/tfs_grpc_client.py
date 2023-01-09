@@ -11,8 +11,8 @@ from tqdm import tqdm
 # Parse the command-line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('server', help='server ip:port, e.g. 10.1.1.37:8500')
-parser.add_argument('-b', '--batch', type=int, default=1, help="batch size")
-parser.add_argument('-m', '--model', required=True, default='cnn_cpsurf44m', type=str)
+parser.add_argument('-b', '--batch', type=int, default=1, help='batch size')
+parser.add_argument('-m', '--model', required=True, default='medium_cnn', type=str)
 parser.add_argument('-n', default=128, type=int, help='number of requests')
 parser.add_argument('-o', '--outfile', default='results.csv', help='name of output file')
 parser.add_argument('-v', '--verbose', action='store_true', help='verbose output')

@@ -4,8 +4,8 @@ import time
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-b', '--batch', type=int, default=1, help="batch size")
-parser.add_argument('-m', '--model', required=True, default='cnn_cpsurf44m', type=str)
+parser.add_argument('-b', '--batch', type=int, default=1, help='batch size')
+parser.add_argument('-m', '--model', required=True, default='medium_cnn', type=str)
 parser.add_argument('-n', '--num_requests', default=128, type=int, help='number of requests')
 parser.add_argument('-v', '--verbose', action='store_true', help='verbose output')
 args = parser.parse_args()

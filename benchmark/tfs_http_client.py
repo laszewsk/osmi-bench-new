@@ -12,8 +12,8 @@ from tqdm import tqdm
 # Parse the command-line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('server', help='server ip:port, e.g. 10.1.1.37:8080')
-parser.add_argument('-b', '--batch', type=int, default=1, help="batch size")
-parser.add_argument('-m', '--model', required=True, default='cnn_cpsurf44m', type=str)
+parser.add_argument('-b', '--batch', type=int, default=1, help='batch size')
+parser.add_argument('-m', '--model', required=True, default='medium_cnn', type=str)
 parser.add_argument('-n', default=128, type=int, help='number of requests')
 parser.add_argument('-o', '--outfile', default='results.csv', help='name of output file')
 parser.add_argument('-q', '--query', action='store_true', help="query the model and exit")
@@ -35,16 +35,12 @@ if args.query:
     print(response.text)
     sys.exit()
 
-if args.model == "lineml_fcn3datasets":
-    shape = (args.batch, 296)
-elif args.model == "lineml_fcn_rev9and12":
-    shape = (args.batch, 296)
-elif args.model == "4lstm2fcn_8in2out":
+if args.model == "small_lstm":
     shape = (args.batch, 8, 48)
-elif args.model == "cnn_cpsurf44m":
+elif args.model == "medium_cnn":
     shape = (args.batch, 101, 82, 9)
-elif args.model == "tcnn_surfml_212m":
-    shape = (args.batch, 2, 101, 82, 9)
+elif args.model == "large_tcnn":
+    shape = (args.batch, 3, 101, 82, 9)
 else:
     raise ValueError("model not supported")
 
