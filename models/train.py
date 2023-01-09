@@ -1,4 +1,4 @@
-"""usage: python train.py {small|medium|large}"""
+"""usage: python train.py {small_lstm|medium_cnn|large_tcnn}"""
 import argparse
 import importlib
 import numpy as np
@@ -19,13 +19,13 @@ epochs = 5
 batch_size = 32
 
 # compute synthetic data for X and Y
-if args.arch == "small":
+if args.arch == "small_lstm":
     input_shape = (8, 48)
     output_shape = (2, 12)
-elif args.arch == "medium":
+elif args.arch == "medium_cnn":
     input_shape = (101, 82, 9)
     output_shape = (101, 82)
-elif args.arch == "large":
+elif args.arch == "large_tcnn":
     input_shape = (3, 101, 82, 9)
     output_shape = (3, 101, 82, 1)
 else:
@@ -44,4 +44,4 @@ model.compile(loss='mae', optimizer='adam')
 # train model
 model.fit(X, Y, batch_size=batch_size, epochs=epochs)
 
-model.save('mymodel')
+model.save(f"{args.arch}/1")

@@ -24,11 +24,11 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868. Note that 
 
     Generate the model in the models directory using:
 
-        > python train.py medium
+        > python train.py medium_cnn
 
     Check the model output:
 
-        > saved_model_cli show --all --dir mymodel
+        > saved_model_cli show --all --dir medium_cnn
 
     Update name and path in models.conf file. Make sure name of model is defined in models parameter in tfs_grpc_client.py. 
 
@@ -44,7 +44,7 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868. Note that 
 
     Send packets to be inference:
 
-        > python tfs_grpc_client.py -m mymodel -b 32 -n 10 localhost:8500
+        > python tfs_grpc_client.py -m medium_cnn -b 32 -n 10 localhost:8500
 
     Output of timings should be in file results.csv.
 

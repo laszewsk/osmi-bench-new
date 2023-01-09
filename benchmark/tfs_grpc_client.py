@@ -37,14 +37,11 @@ stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
 isd = lambda a, b, c : {'inputs': a, 'shape': b, 'dtype': c}
 
 models = {
-          'lineml_fcn3datasets': isd('input_1', (args.batch, 296), np.float64), 
-          'lineml_fcn_rev9and12': isd('input_2', (args.batch, 296), np.float64), 
-          '4lstm2fcn_8in2out': isd('input_1', (args.batch, 8, 48), np.float64),
-          'cnn_cpsurf44m': isd('input1', (args.batch, 101, 82, 9), np.float32),
-          'tcnn_surfml_212m': isd('input_1', (args.batch, 2, 101, 82, 9), np.float32),
+          'small_lstm': isd('input_1', (args.batch, 8, 48), np.float64),
+          'medium_cnn': isd('input1', (args.batch, 101, 82, 9), np.float32),
+          'large_tcnn': isd('input_1', (args.batch, 3, 101, 82, 9), np.float32),
           'swmodel': isd('dense_input', (args.batch, 3778), np.float32),
           'lwmodel': isd('dense_input', (args.batch, 1426), np.float32),
-          'mymodel': isd('dense_input', (args.batch, 1426), np.float32)
          }
 
 times = list()
