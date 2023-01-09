@@ -48,39 +48,38 @@ def build_model(input_shape, af='elu'):
     x = Reshape((3, 1024))(x)
     print('Encoder output {}'.format(x.shape))
 
-    fts = int(x.shape[2])
-    fts2 = fts*2
+    filters = 2*int(x.shape[2])
 
     settings2 = dict(kernel_size=2, padding='causal', activation=af)
 
-    x1 = Conv1D(fts2, dilation_rate=1, **settings2)(x)
-    x = Conv1D(fts2, dilation_rate=1, **settings2)(x1)
-    x = Conv1D(fts2, dilation_rate=1, **settings2)(x)
+    x1 = Conv1D(filters, dilation_rate=1, **settings2)(x)
+    x = Conv1D(filters, dilation_rate=1, **settings2)(x1)
+    x = Conv1D(filters, dilation_rate=1, **settings2)(x)
     x = tfkl.Add()([x1, x])
 
-    x1 = Conv1D(fts2, dilation_rate=1, **settings2)(x)
-    x = Conv1D(fts2, dilation_rate=2, **settings2)(x1)
-    x = Conv1D(fts2, dilation_rate=1, **settings2)(x)
+    x1 = Conv1D(filters, dilation_rate=1, **settings2)(x)
+    x = Conv1D(filters, dilation_rate=2, **settings2)(x1)
+    x = Conv1D(filters, dilation_rate=1, **settings2)(x)
     x = tfkl.Add()([x1, x])
 
-    x1 = Conv1D(fts2, dilation_rate=1, **settings2)(x)
-    x = Conv1D(fts2, dilation_rate=2, **settings2)(x1)
-    x = Conv1D(fts2, dilation_rate=1, **settings2)(x)
+    x1 = Conv1D(filters, dilation_rate=1, **settings2)(x)
+    x = Conv1D(filters, dilation_rate=2, **settings2)(x1)
+    x = Conv1D(filters, dilation_rate=1, **settings2)(x)
     x = tfkl.Add()([x1, x])
 
-    x1 = Conv1D(fts2, dilation_rate=1, **settings2)(x)
-    x = Conv1D(fts2, dilation_rate=2, **settings2)(x1)
-    x = Conv1D(fts2, dilation_rate=1, **settings2)(x)
+    x1 = Conv1D(filters, dilation_rate=1, **settings2)(x)
+    x = Conv1D(filters, dilation_rate=2, **settings2)(x1)
+    x = Conv1D(filters, dilation_rate=1, **settings2)(x)
     x = tfkl.Add()([x1, x])
 
-    x1 = Conv1D(fts2, dilation_rate=1, **settings2)(x)
-    x = Conv1D(fts2, dilation_rate=12, **settings2)(x1)
-    x = Conv1D(fts2, dilation_rate=1, **settings2)(x)
+    x1 = Conv1D(filters, dilation_rate=1, **settings2)(x)
+    x = Conv1D(filters, dilation_rate=12, **settings2)(x1)
+    x = Conv1D(filters, dilation_rate=1, **settings2)(x)
     x = tfkl.Add()([x1, x])
 
-    x1 = Conv1D(fts2, dilation_rate=1, **settings2)(x)
-    x = Conv1D(fts2, dilation_rate=32, **settings2)(x1)
-    x = Conv1D(fts2, dilation_rate=1, **settings2)(x)
+    x1 = Conv1D(filters, dilation_rate=1, **settings2)(x)
+    x = Conv1D(filters, dilation_rate=32, **settings2)(x1)
+    x = Conv1D(filters, dilation_rate=1, **settings2)(x)
     x = tfkl.Add()([x1, x])
 
     x = Reshape((3, 1, 1, 2048))(x)
