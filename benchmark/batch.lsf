@@ -1,14 +1,14 @@
 #!/bin/sh
 #BSUB -nnodes 1
 #BSUB -q batch
-#BSUB -J smibench
-#BSUB -P ARD143
-#BSUB -o /gpfs/alpine/scratch/whbrewer/ard143/%J.out 
-#BSUB -e /gpfs/alpine/scratch/whbrewer/ard143/%J.err
+#BSUB -J osmibench
+#BSUB -P ABC123
+#BSUB -o /gpfs/alpine/scratch/username/abc123/%J.out 
+#BSUB -e /gpfs/alpine/scratch/username/abc123/%J.err
 #BSUB -W 1:00
 #BSUB -alloc_flags nvme
 
-cd $HOME/surbench/smisf/tfs
+cd $LS_SUBCWD
 
 ./1_start_tfs_servers_erf.sh
 ./2_start_load_balancers.sh
