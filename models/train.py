@@ -19,15 +19,18 @@ epochs = 5
 batch_size = 32
 
 # compute synthetic data for X and Y
-# small model
-input_shape = (8, 48)
-output_shape = (2, 12)
-# medium model
-#input_shape = (101, 82, 9)
-#output_shape = (101, 82)
-# large model
-#input_shape = (2, 101, 82, 9)
-#output_shape = (2, 101, 82, 1)
+if args.arch == "small":
+    input_shape = (8, 48)
+    output_shape = (2, 12)
+elif args.arch == "medium":
+    input_shape = (101, 82, 9)
+    output_shape = (101, 82)
+elif args.arch == "large":
+    input_shape = (3, 101, 82, 9)
+    output_shape = (3, 101, 82, 1)
+else:
+    raise ValueError("Model not supported. Need to specify input and output shapes")
+
 X = np.random.rand(samples, *input_shape)
 Y = np.random.rand(samples, *output_shape)
 
