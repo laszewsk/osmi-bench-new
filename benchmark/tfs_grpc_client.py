@@ -37,9 +37,9 @@ stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
 isd = lambda a, b, c : {'inputs': a, 'shape': b, 'dtype': c}
 
 models = {
-          'small_lstm': isd('input_1', (args.batch, 8, 48), np.float64),
-          'medium_cnn': isd('input1', (args.batch, 101, 82, 9), np.float32),
-          'large_tcnn': isd('input_1', (args.batch, 3, 101, 82, 9), np.float32),
+          'small_lstm': isd('inputs', (args.batch, 8, 48), np.float64),
+          'medium_cnn': isd('inputs', (args.batch, 101, 82, 9), np.float32),
+          'large_tcnn': isd('inputs', (args.batch, 3, 101, 82, 9), np.float32),
           'swmodel': isd('dense_input', (args.batch, 3778), np.float32),
           'lwmodel': isd('dense_input', (args.batch, 1426), np.float32),
          }

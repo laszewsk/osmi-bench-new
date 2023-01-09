@@ -5,7 +5,7 @@ from tensorflow.keras.layers import Reshape, Conv2DTranspose, ZeroPadding2D, Con
 
 def build_model(input_shape, af='elu'):
 
-    input_layer = Input(shape=input_shape, name='input')
+    input_layer = Input(shape=input_shape, name='inputs')
     pg = 'same'
     ks = (3, 3) 
     ps = (2, 2)
@@ -55,6 +55,6 @@ def build_model(input_shape, af='elu'):
     x = Conv2DTranspose(4, kernel_size=ks, padding=pg, activation=af)(x)
     x = Conv2DTranspose(2, kernel_size=ks, padding=pg, activation=af)(x)
 
-    outputs = Conv2DTranspose(1, kernel_size=ks, padding=pg, activation='linear')(x)
+    outputs = Conv2DTranspose(1, kernel_size=ks, padding=pg, activation='linear', name='outputs')(x)
 
     return Model(inputs=[input_layer], outputs=[outputs])

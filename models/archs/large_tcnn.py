@@ -24,7 +24,7 @@ def resblock(inputs, units, settings):
 def build_model(input_shape, af='elu'):
     pool = (2, 2)
 
-    inputs = Input(shape=input_shape)
+    inputs = Input(shape=input_shape, name='inputs')
     settings = dict(kernel_size=(4, 4), padding='same', activation=af)
 
     # Encoder region
@@ -129,7 +129,7 @@ def build_model(input_shape, af='elu'):
     x = TimeDistributed(Conv2DTranspose(2, **settings))(x)
 
     settings['activation'] = 'linear'
-    outputs = TimeDistributed(Conv2DTranspose(1, **settings))(x)
+    outputs = TimeDistributed(Conv2DTranspose(1, **settings), name='outputs')(x)
 
     return Model(inputs=[inputs], outputs=[outputs])
 
