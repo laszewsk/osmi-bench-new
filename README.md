@@ -63,7 +63,7 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868. Note that 
                               # but should be changed to using benchmark.py in the future
 
         # run an individual benchmark
-        python benchmark.py -b 32 -m lwmodel -n 1024
+        python benchmark.py -b 32 -m small_lstm -n 1024
 
 5. Production run. First update parameters in batch.lsf, then submit to LSF scheduler:
 
