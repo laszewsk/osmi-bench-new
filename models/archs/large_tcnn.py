@@ -1,3 +1,11 @@
+""" The TCNN architecture is described in the following paper:
+
+    Pandey, Ashutosh, and DeLiang Wang. "TCNN: Temporal convolutional neural 
+    network for real-time speech enhancement in the time domain." In ICASSP 
+    2019-2019 IEEE International Conference on Acoustics, Speech and Signal 
+    Processing (ICASSP), pp. 6875-6879. IEEE, 2019.
+"""
+
 import numpy as np
 import tensorflow.keras.layers as tfkl
 
@@ -18,7 +26,8 @@ def build_model(input_shape, af='elu'):
 
     inputs = Input(shape=input_shape)
     settings = dict(kernel_size=(4, 4), padding='same', activation=af)
-    print(settings)
+
+    # Encoder region
 
     x = resblock(inputs, 9, settings)
     x = resblock(x, 16, settings)
@@ -43,15 +52,14 @@ def build_model(input_shape, af='elu'):
 
     x = resblock(x, 1024, settings)
     x = TimeDistributed(MaxPooling2D(pool_size=pool))(x)
-    print(x.shape)
 
     x = Reshape((3, 1024))(x)
-    print('Encoder output {}'.format(x.shape))
+
+    # Temporal convolutional model (TCM)
 
     filters = 2*int(x.shape[2])
-
     settings2 = dict(kernel_size=2, padding='causal', activation=af)
-
+ 
     x1 = Conv1D(filters, dilation_rate=1, **settings2)(x)
     x = Conv1D(filters, dilation_rate=1, **settings2)(x1)
     x = Conv1D(filters, dilation_rate=1, **settings2)(x)
@@ -84,7 +92,8 @@ def build_model(input_shape, af='elu'):
 
     x = Reshape((3, 1, 1, 2048))(x)
 
-    # Decoder 
+    # Decoder region
+
     x = resblock(x, 1024, settings)
     x = TimeDistributed(UpSampling2D(size=pool))(x)
 
