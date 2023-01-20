@@ -9,9 +9,20 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868. Note that 
 
 # Instructions
 
-1. Setup environment - on Summit login node. Note that this benchmark is currently setup to `module load open-ce/1.1.3-py38-0` and `module load cuda/11.0.2`. Users on other systems may `pip install -r requirements.txt`. In addition to TensorFlow and gRPC, users also need to install TensorFlow Serving and if wanting to use multiple GPUs may install an HAProxy Singularity container as follows:
+1. Setup environment - on Summit login node. Note that this benchmark is currently setup to `module load open-ce/1.1.3-py38-0` and `module load cuda/11.0.2`. Users on other systems may `pip install -r requirements.txt` (it may be preferable to install the packages one by one either by using `pip` or `conda`... sometimes one works better over the other). In addition to TensorFlow and gRPC, users also need to install TensorFlow Serving and if wanting to use multiple GPUs may install an HAProxy Singularity container as follows:
 
         > singularity pull docker://haproxy
+
+On x86_64 systems, TensorFlow Serving may be downloaded as a Singularity container using:
+
+        > singularity pull docker://tensorflow/serving:latest-gpu
+
+On POWER9 systems, TensorFlow Serving may be installed via the conda repository at opence.mit.edu.
+
+        > conda config --prepend channels https://opence.mit.edu
+        > conda create -n osmi python=3.8
+        > conda activate osmi
+        > conda install tensorflow-serving
 
 2. Interactive usage:
 
