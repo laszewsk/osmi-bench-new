@@ -45,6 +45,8 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868. Note that 
 
     Launch TensorFlow Serving:
 
+        > singularity shell --home `pwd` --nv serving_latest-gpu.sif # (if using container)
+
         > tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log & 
 
     Make sure TF Serving started correctly:
