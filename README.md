@@ -13,11 +13,11 @@ Available from https://ieeexplore.ieee.org/abstract/document/9652868. Note that 
 
         > singularity pull docker://haproxy
 
-On x86_64 systems, TensorFlow Serving may be downloaded as a Singularity container using:
+    On x86_64 systems, TensorFlow Serving may be downloaded as a Singularity container using:
 
         > singularity pull docker://tensorflow/serving:latest-gpu
 
-On POWER9 systems, TensorFlow Serving may be installed via the conda repository at opence.mit.edu.
+    On POWER9 systems, TensorFlow Serving may be installed via the conda repository at opence.mit.edu.
 
         > conda config --prepend channels https://opence.mit.edu
         > conda create -n osmi python=3.8
