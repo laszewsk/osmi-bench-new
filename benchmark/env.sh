@@ -5,7 +5,7 @@ if [[ -d "/sw/summit" ]]; then
   echo "using Summit configuration"
   module load open-ce/1.1.3-py38-0
   module load cuda/11.0.2
-  WORKDIR=$MEMBERWORK/ard143
+  WORKDIR=$MEMBERWORK/$PROJ_ID
   host=$(hostname)
   set_cuda_visible_devices=false
   NGPUS=6
