@@ -19,8 +19,11 @@ export PROJ_ID=ABC123 # change ABC123 to your project number
 4. Train models
 
     cd models
+
     python train.py small_lstm
+
     python train.py medium_cnn
+
     python train.py large_tcnn
 
 Note: Edit benchmark/models.conf to modify paths to point to the individual, e.g., /ccs/home/whbrewer/osmi-bench/models/small_lstm
