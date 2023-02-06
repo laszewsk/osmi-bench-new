@@ -1,6 +1,5 @@
 # Summit Instructions
 
-        export PROJ_ID=ABC123 # change ABC123 to your project number
 
 1. Install software
 
@@ -8,6 +7,7 @@
 
 2. Get interactive debug node
 
+        export PROJ_ID=ABC123 # change ABC123 to your project number
         bsub -Is -q debug -P ${PROJ_ID} -nnodes 1 -W 1:00 -J osmi $SHELL
 
 3. Setup environment
