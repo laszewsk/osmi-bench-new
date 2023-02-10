@@ -1,7 +1,7 @@
 config:
-    server: "node036"
+    server: "localhost"
     gpu: "A100-SXM2-32GB"
-    batch: [32]
+    batch: [1, 2, 4, 8]
     ngpus: [1]
-    concurrency: [1, 16]
-    ports: [8500, 8501, 8502, 8503, 8504]
+    concurrency: [1, 2, 4, ]
+    ports: [8500]

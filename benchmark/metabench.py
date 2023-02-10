@@ -40,6 +40,7 @@ parser.add_argument('-c', '--concurrency', nargs='+', type=int)
 parser.add_argument('-n', '--ngpus', nargs='+', type=int)
 parser.add_argument('-p', '--ports',  nargs='+', type=int)
 parser.add_argument('-o', '--outfn', default='results.csv')
+parser.add_argument('-a', '--algorithm', default='tfs_grpc_client.py'
 args = parser.parse_args()
 
 with open (args.outfn, 'w') as csvfile:
@@ -59,10 +60,6 @@ if ".yaml" in args.server:
 
 print(args)
 
-# Get the number of cuncurrent clients to send first.
-# Then start with the first model or port to send to.
-# Finally submit that many clients to that port.
-# Now repeat this for ever concurrent test in the list.
 for batchsize in args.batch: # e.g. [16, 64]
     print(f"\nbatchsize: {batchsize}")
     for ngpus in args.ngpus: # e.g. [1, 2, 4, 8]
