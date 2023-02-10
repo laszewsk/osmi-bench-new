@@ -4,4 +4,4 @@ config:
     batch: [32]
     ngpus: [1]
     concurrency: [1, 16]
-    ports: [8500, 8501, 8502, 8503, 8504, 
+    ports: [8500, 8501, 8502, 8503, 8504]
