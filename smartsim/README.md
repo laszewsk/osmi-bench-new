@@ -11,5 +11,8 @@ python startdb.py
 # Test if server is running
 lsof -i :6780
 
+# Train model
+python train.py small_lstm
+
 # Run benchmark
-python benchmark.py
+python benchmark.py small_lstm

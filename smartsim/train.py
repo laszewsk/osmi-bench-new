@@ -10,12 +10,13 @@ from torch.utils.data import DataLoader, TensorDataset
 parser = argparse.ArgumentParser()
 archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
 parser.add_argument('arch', type=str, choices=archs, help='Type of neural network architectures')
+parser.add_argument('-b', '--batch', type=int, default=1, help='batch size')
 args = parser.parse_args()
 
 # Parameters
 samples = 100
 epochs = 5
-batch_size = 32
+batch_size = args.batch
 
 # Compute synthetic data for X and Y
 if args.arch == "small_lstm":

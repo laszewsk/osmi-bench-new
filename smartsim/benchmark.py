@@ -1,59 +1,63 @@
+import argparse
+import importlib
 import io
 import numpy as np
+import os
 import time
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 
-from tqdm import tqdm
 from smartredis import Client
+from tqdm import tqdm
+
+parser = argparse.ArgumentParser()
+archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
+parser.add_argument('arch', type=str, choices=archs, help='Type of neural network architectures')
+parser.add_argument('-b', '--batch', type=int, default=1, help='batch size')
+parser.add_argument('-n', default=128, type=int, help='number of requests')
+args = parser.parse_args()
+
+# Compute synthetic data for X and Y
+if args.arch == "small_lstm":
+    input_shape = (8, 48)  # Sequence length, feature size
+    output_shape = (24,)  # Total output size
+elif args.arch == "medium_cnn":
+    input_shape = (9, 101, 82)  # Channels, Height, Width
+    output_shape = (101*82,)  # Flattened output size
+elif args.arch == "large_tcnn":
+    input_shape = (9, 101, 82)  # Channels, Depth, Height, Width for 3D CNNs, but let's simplify
+    output_shape = (101*82,)  # Adjust based on actual model architecture
+else:
+    raise ValueError("Model not supported. Need to specify input and output shapes")
 
 
-class Net(nn.Module):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, 32, 3, 1)
-        self.conv2 = nn.Conv2d(32, 64, 3, 1)
-        self.dropout1 = nn.Dropout(0.25)
-        self.dropout2 = nn.Dropout(0.5)
-        self.fc1 = nn.Linear(9216, 128)
-        self.fc2 = nn.Linear(128, 10)
+isd = lambda a, b, c : {'inputs': a, 'shape': b, 'dtype': c}
 
-    def forward(self, x):
-        x = self.conv1(x)
-        x = F.relu(x)
-        x = self.conv2(x)
-        x = F.relu(x)
-        x = F.max_pool2d(x, 2)
-        x = self.dropout1(x)
-        x = torch.flatten(x, 1)
-        x = self.fc1(x)
-        x = F.relu(x)
-        x = self.dropout2(x)
-        x = self.fc2(x)
-        output = F.log_softmax(x, dim=1)
-        return output
+models = {
+          'small_lstm': isd('inputs', (args.batch, 8, 48), np.float32),
+          'medium_cnn': isd('inputs', (args.batch, 101, 82, 9), np.float32),
+          'large_tcnn': isd('inputs', (args.batch, 3, 101, 82, 9), np.float32),
+          'swmodel': isd('dense_input', (args.batch, 3778), np.float32),
+          'lwmodel': isd('dense_input', (args.batch, 1426), np.float32),
+         }
 
-# Initialize an instance of our CNN model
-n = Net()
-n.eval()
+data = np.array(np.random.random(models[args.arch]['shape']), dtype=models[args.arch]['dtype'])
 
-# prepare a sample input to trace on (random noise is fine)
-example_forward_input = torch.rand(1, 1, 28, 28)
+# Define model
+model_module = importlib.import_module('archs.' + args.arch)
+torch_model = model_module.build_model(input_shape)
+print(torch_model)
 
-def create_torch_model(torch_module, example_forward_input):
+model_path = f'{args.arch}_model.pth'
+torch_model.load_state_dict(torch.load(model_path))
+torch_model.eval()  # Set the model to evaluation mode
 
-    # perform the trace of the nn.Module.forward() method
-    module = torch.jit.trace(torch_module, example_forward_input)
+# Convert the model to TorchScript
+example_forward_input = torch.rand(models[args.arch]['shape']) 
+module = torch.jit.trace(torch_model, example_forward_input)
+model_buffer = io.BytesIO()
+torch.jit.save(module, model_buffer)
 
-    # save the traced module to a buffer
-    model_buffer = io.BytesIO()
-    torch.jit.save(module, model_buffer)
-    return model_buffer.getvalue()
-
-traced_cnn = create_torch_model(n, example_forward_input)
-
-#client = Client(address=db.get_address()[0], cluster=False)
+# Get the database address and create a SmartRedis client
 client = Client(address="localhost:6780", cluster=False)
 
 num_requests = 128
@@ -62,9 +66,9 @@ times = list()
 
 for _ in tqdm(range(num_requests)):
     tik = time.perf_counter()
-    client.put_tensor("input", torch.rand(20, 1, 28, 28).numpy())
+    client.put_tensor("input", torch.rand(models[args.arch]['shape']).numpy())
     # put the PyTorch CNN in the database in GPU memory
-    client.set_model("cnn", traced_cnn, "TORCH", device="CPU")
+    client.set_model("cnn", model_buffer.getvalue(), "TORCH", device="CPU")
     # execute the model, supports a variable number of inputs and outputs
     client.run_model("cnn", inputs=["input"], outputs=["output"])
     # get the output
