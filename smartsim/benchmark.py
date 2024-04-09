@@ -47,15 +47,15 @@ model_module = importlib.import_module('archs.' + args.arch)
 torch_model = model_module.build_model(input_shape)
 print(torch_model)
 
-model_path = f'{args.arch}_model.pth'
-torch_model.load_state_dict(torch.load(model_path))
-torch_model.eval()  # Set the model to evaluation mode
+# Load the TorchScript model
+model_path = f'{args.arch}_model.jit'
+torch_model = torch.jit.load(model_path)
+torch_model.eval()  # Ensure the model is in evaluation mode
 
-# Convert the model to TorchScript
-example_forward_input = torch.rand(models[args.arch]['shape']) 
-module = torch.jit.trace(torch_model, example_forward_input)
+# Serialize the loaded TorchScript model into a byte buffer
 model_buffer = io.BytesIO()
-torch.jit.save(module, model_buffer)
+torch.jit.save(torch_model, model_buffer)
+model_buffer.seek(0)  # Reset buffer position to the beginning
 
 # Get the database address and create a SmartRedis client
 client = Client(address="localhost:6780", cluster=False)

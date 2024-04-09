@@ -62,6 +62,8 @@ for epoch in range(epochs):
         optimizer.step()
     print(f'Epoch {epoch+1}, Loss: {loss.item()}')
 
-# Save model - PyTorch way
-torch.save(model.state_dict(), f"{args.arch}_model.pth")
-
+# Save model
+model.eval() 
+example_input = torch.rand(1, *input_shape)
+scripted_model = torch.jit.trace(model, example_input)
+scripted_model.save(f"{args.arch}_model.jit")
