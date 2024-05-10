@@ -1,0 +1,2192 @@
+{
+  "model_small_lstm_repeat_1_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_1_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_1_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=1 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_1_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_1_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_1_directive_a100-dgx",
+        "uuid": "672ddbe2-01f8-4b4e-bdd7-1c123171f135"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "1",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_small_lstm_repeat_2_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_2_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_2_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=2 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_2_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_2_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_2_directive_a100-dgx",
+        "uuid": "3d527a14-e116-4654-88a6-e841a692cc8b"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "2",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_small_lstm_repeat_3_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_3_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_3_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=3 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_3_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_3_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_3_directive_a100-dgx",
+        "uuid": "ab92f06e-a4de-4145-afe8-69cd95c51bf3"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "3",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_small_lstm_repeat_4_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_4_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_4_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=4 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_4_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_4_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_4_directive_a100-dgx",
+        "uuid": "5ebcd715-93b9-4664-9903-15d0c5a5afad"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "4",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_small_lstm_repeat_5_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_5_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_5_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=5 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_5_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_5_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_5_directive_a100-dgx",
+        "uuid": "4efe35c3-c34f-4e60-8616-a8006f41274e"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "5",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_small_lstm_repeat_6_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_6_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_6_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=6 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_6_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_6_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_6_directive_a100-dgx",
+        "uuid": "7501b756-6cbb-4ad8-9320-12f8743c938c"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "6",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_small_lstm_repeat_7_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_7_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_7_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=7 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_7_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_7_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_7_directive_a100-dgx",
+        "uuid": "fec7f7eb-6640-4cc2-bfc0-bf6d0db50fb9"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "7",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_small_lstm_repeat_8_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_8_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_8_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=8 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_8_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_8_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_8_directive_a100-dgx",
+        "uuid": "7b47305b-1484-4312-b596-1b2452b8dacd"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "8",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_small_lstm_repeat_9_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_9_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_9_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=9 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_9_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_9_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_9_directive_a100-dgx",
+        "uuid": "fa2ea6b2-e78c-4f1a-af8a-d67b45fb91d0"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "9",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_small_lstm_repeat_10_directive_a100-dgx": {
+    "id": "model_small_lstm_repeat_10_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_10_directive_a100-dgx",
+    "experiment": "model=small_lstm repeat=10 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_10_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_small_lstm_repeat_10_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_small_lstm_repeat_10_directive_a100-dgx",
+        "uuid": "deef2d52-0587-4727-b32a-eef9faae8156"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "small_lstm",
+        "repeat": "10",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_1_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_1_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_1_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=1 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_1_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_1_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_1_directive_a100-dgx",
+        "uuid": "d54baa97-2197-47e4-a8a2-ceb54bd554b3"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "1",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_2_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_2_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_2_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=2 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_2_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_2_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_2_directive_a100-dgx",
+        "uuid": "1e976c37-f391-4876-9644-a66dfc298ec0"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "2",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_3_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_3_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_3_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=3 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_3_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_3_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_3_directive_a100-dgx",
+        "uuid": "8e5599e1-4d45-4021-a718-e06b4f5e77ca"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "3",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_4_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_4_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_4_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=4 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_4_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_4_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_4_directive_a100-dgx",
+        "uuid": "77bff728-23e7-4380-bb89-3a8930fea21f"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "4",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_5_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_5_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_5_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=5 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_5_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_5_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_5_directive_a100-dgx",
+        "uuid": "d0cdb829-2e0e-4fd8-b06d-614b757d8f4e"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "5",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_6_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_6_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_6_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=6 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_6_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_6_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_6_directive_a100-dgx",
+        "uuid": "803c9d43-50cf-4608-aac0-39dd832fe867"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "6",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_7_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_7_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_7_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=7 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_7_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_7_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_7_directive_a100-dgx",
+        "uuid": "ccfbc44a-68c8-490f-9900-0f0fe22749ad"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "7",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_8_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_8_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_8_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=8 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_8_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_8_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_8_directive_a100-dgx",
+        "uuid": "fd4abb14-a395-4b65-a62c-7bfb0f03d473"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "8",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_9_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_9_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_9_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=9 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_9_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_9_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_9_directive_a100-dgx",
+        "uuid": "fae10421-8bff-4a30-85be-07d704d38a7a"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "9",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_medium_cnn_repeat_10_directive_a100-dgx": {
+    "id": "model_medium_cnn_repeat_10_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_10_directive_a100-dgx",
+    "experiment": "model=medium_cnn repeat=10 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_10_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_medium_cnn_repeat_10_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_medium_cnn_repeat_10_directive_a100-dgx",
+        "uuid": "50cb0b21-47ce-42b1-98b2-e3b3500be166"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "medium_cnn",
+        "repeat": "10",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_1_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_1_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_1_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=1 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_1_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_1_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_1_directive_a100-dgx",
+        "uuid": "5d004e3f-7a92-4c67-86bf-86d02978055f"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "1",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_2_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_2_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_2_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=2 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_2_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_2_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_2_directive_a100-dgx",
+        "uuid": "8f1315bf-5826-4401-84d3-0efb4cc66c43"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "2",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_3_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_3_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_3_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=3 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_3_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_3_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_3_directive_a100-dgx",
+        "uuid": "7e9b461c-2b3b-4292-9fc2-2f47cf1f48a1"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "3",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_4_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_4_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_4_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=4 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_4_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_4_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_4_directive_a100-dgx",
+        "uuid": "089d8401-dc07-4ef4-9e94-fa08f850876d"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "4",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_5_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_5_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_5_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=5 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_5_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_5_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_5_directive_a100-dgx",
+        "uuid": "e3e3448c-8e12-479b-ac5a-15ef9444045e"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "5",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_6_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_6_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_6_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=6 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_6_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_6_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_6_directive_a100-dgx",
+        "uuid": "8eb975ad-5adc-49ed-a42e-a96ddc76b7a9"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "6",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_7_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_7_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_7_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=7 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_7_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_7_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_7_directive_a100-dgx",
+        "uuid": "76175c42-bc18-4726-85b4-2e2e57c96c53"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "7",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_8_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_8_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_8_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=8 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_8_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_8_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_8_directive_a100-dgx",
+        "uuid": "ed8768bc-d590-4003-9dbf-b9c39e2b1c8a"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "8",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_9_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_9_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_9_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=9 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_9_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_9_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_9_directive_a100-dgx",
+        "uuid": "e9f3f3dd-0759-4959-832f-1a3f6f97ad18"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "9",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  },
+  "model_large_tcnn_repeat_10_directive_a100-dgx": {
+    "id": "model_large_tcnn_repeat_10_directive_a100-dgx",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_10_directive_a100-dgx",
+    "experiment": "model=large_tcnn repeat=10 directive=a100-dgx",
+    "script": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_10_directive_a100-dgx/model.slurm",
+    "config": "/sfs/weka/scratch/thf2bn/osmi2/osmi-bench-new/target/rivanna/tfserving/train/project/model_large_tcnn_repeat_10_directive_a100-dgx/config.yaml",
+    "variables": {
+      "name": "osmi-training",
+      "ee": {
+        "time": "0:30:00",
+        "identifier": "model_large_tcnn_repeat_10_directive_a100-dgx",
+        "uuid": "56fe8929-598b-40b6-9274-d9706cbb7807"
+      },
+      "submission": {
+        "benchmark": {
+          "name": null
+        },
+        "name": {
+          "name": null
+        },
+        "submitter": "Gregor von Laszewski",
+        "email": "laszewski@gmail.com",
+        "org": "University of Virginia",
+        "division": "open",
+        "version": 1.0,
+        "github_commit_version": "TBD",
+        "status": "completed",
+        "platform": "rivanna",
+        "accelerators_per_node": 1
+      },
+      "experiment": {
+        "model": "large_tcnn",
+        "repeat": "10",
+        "directive": "a100-dgx",
+        "card_name": "a100"
+      },
+      "other": {
+        "batch_size": 32,
+        "nodes": 1,
+        "gpu": 1,
+        "gpu_count": "1",
+        "cpu_num": 1,
+        "mem": "64GB"
+      },
+      "identifier": "{experiment.directive}_{experiment.model}-{experiment.repeat}",
+      "system": {
+        "host": "rivanna",
+        "python": "3.10.8",
+        "num_cpus": 1,
+        "platform": "rivanna",
+        "accelerators_per_node": 1,
+        "constraint": "",
+        "reservation": ""
+      },
+      "output": {
+        "directory": "./project/model_{experiment.model}_directive_{experiment.directive}_repeat_{experiment.repeat}"
+      },
+      "log": {
+        "file": "c_cloudmask_run.log",
+        "mlperf": "c_mlperf_cloudmask.log"
+      },
+      "os": {
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
+      },
+      "slurm": {
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
+      }
+    },
+    "copycode": [
+      "../build/tfserving/archs"
+    ]
+  }
+}
