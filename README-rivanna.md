@@ -29,16 +29,38 @@ significantly contribut in time and intellectual contributions.
 
 * Aoom link, contact Gregor
 
+## Rivanna login
+
+We assume that ssh login is set up that you can find on Gregors rivanna tutorials.
+
+Activate vpn, you can use cloudmesh-vpn for that 
+
+
+```bash
+pip install cloudmesh-vpn
+cms vpn activate
+```
+
+Now log into rivanna
+
+```bash
+ssh rivanna
+```
+
+Now follow for the first time the first time setup steps
 
 ## One time setup Setup
 
 ```bash
-export PROJECT_BASE=/scratch/$USER/osmi2
-mkdir -p $PROJECT_BASE
-cd $PROJECT_BASE
+export OSMI_PROJECT_BASE=/scratch/$USER/osmi2
+mkdir -p $OSMI_PROJECT_BASE
+cd $OSMIPROJECT_BASE
 
+git clone git@github.com:laszewsk/osmi-bench-new.git
 
-git clone https://github.com/laszewsk/osmi-bench-new
+#
+# we prefer that you use gitclone with ssh so you should ignore the next line
+# git clone https://github.com/laszewsk/osmi-bench-new
 
 mkdir wes
 cd wes
@@ -58,4 +80,27 @@ features. We dissallow for this project the usage of UVA Ondemand and
 FASTX as well as jupyter started via ondemand. All code must be edited
 with vscode. it is allowed to use emacs and pycharm. code formating
 rules need to be established. Gregor needs help with that so we can do
+
+## .bashrc
+
+add to your .bashrc the following
+
+export OSMI_PROJECT_BASE=/scratch/$USER/osmi2
+alias osmi2="cd $OSMI_PROJECT_BASE"
+
+We require that you use these locations to make deployment uniform
+
+## Working
+
+after you log in you can simply say
+
+```bash
+osmi2
+```
+
+and you jump into your working directory.
+Note as you work under scratch files in scratch are only preserved for 90 days.
+
+
+
 uniform code formatting.
