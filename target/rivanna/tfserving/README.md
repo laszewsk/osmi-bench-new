@@ -15,8 +15,8 @@ export OSMI_PROJECT_BASE=/scratch/$USER/osmi2
 cd $OSMI_PROJECT_BASE
 ```
 
-
+```bash
 cd $OSMI_PROJECT_BASE/target/rivanna/train
 source env.sh
-
 pip install -r requirements.txt
+```
