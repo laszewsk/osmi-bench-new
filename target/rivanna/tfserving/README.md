@@ -23,3 +23,9 @@ pip install -r requirements.txt
 
 Dependencies should be installed with no error.
 
+```bash
+sh images.sh
+cd images
+make images
+cd ..
+```
