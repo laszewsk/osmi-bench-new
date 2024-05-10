@@ -16,7 +16,7 @@ cd $OSMI_PROJECT_BASE
 ```
 
 ```bash
-cd $OSMI_PROJECT_BASE/target/rivanna/train
+cd $OSMI_PROJECT_BASE/target/rivanna/tfserving/train
 source env.sh
 pip install -r requirements.txt
 ```
