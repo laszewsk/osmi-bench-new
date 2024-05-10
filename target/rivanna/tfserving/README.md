@@ -8,7 +8,11 @@ cd target/rivanna/tfserving/train
 ```
 
 ```bash
-echo OSMI_PROJECT_BASE
+echo $OSMI_PROJECT_BASE # this must give you something.
+# if it doesnt give you something, do the following.
+export OSMI_PROJECT_BASE=/scratch/$USER/osmi2
+mkdir -p $OSMI_PROJECT_BASE
+cd $OSMI_PROJECT_BASE
 ```
 
 must be non empty
