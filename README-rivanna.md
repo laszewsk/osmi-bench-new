@@ -54,7 +54,7 @@ Now follow for the first time the first time setup steps
 ```bash
 export OSMI_PROJECT_BASE=/scratch/$USER/osmi2
 mkdir -p $OSMI_PROJECT_BASE
-cd $OSMIPROJECT_BASE
+cd $OSMI_PROJECT_BASE
 
 git clone git@github.com:laszewsk/osmi-bench-new.git
 
