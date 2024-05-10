@@ -86,8 +86,13 @@ rules need to be established. Gregor needs help with that so we can do
 add to your .bashrc the following
 
 ```
+######################################################################                                                                                         
+# OSMI2 setup                                                                                                                                                  
+
 export OSMI_PROJECT_BASE=/scratch/$USER/osmi2
 alias osmi2="cd $OSMI_PROJECT_BASE"
+
+######################################################################    
 ```
 
 We require that you use these locations to make deployment uniform
