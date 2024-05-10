@@ -1,5 +1,7 @@
 # Steps:
 
+You must be on biihead, otherwise, the singularity commands are not whitelisted and will fail
+
 ```bash
 cd target/rivanna/tfserving/train
 
