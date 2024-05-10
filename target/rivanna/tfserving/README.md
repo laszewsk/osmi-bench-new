@@ -20,3 +20,6 @@ cd $OSMI_PROJECT_BASE/target/rivanna/tfserving/train
 source env.sh
 pip install -r requirements.txt
 ```
+
+Dependencies should be installed with no error.
+
