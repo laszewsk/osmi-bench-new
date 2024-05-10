@@ -1,7 +1,7 @@
 
 
 ```bash
-cd target/rivanna/train
+cd target/rivanna/tfserving/train
 
 # make clean
 
