@@ -5,9 +5,9 @@ export CLOUDMESH_CONFIG_DIR=$USER_SCRATCH/.cloudmesh
 export APPTAINER_CACHEDIR=$USER_SCRATCH/.apptainer/cache
 
 #export OSMI_PROJECT=`pwd`
-export OSMI_PROJECT="$OSMI_PROECT_BASE"
-export OSMI_TARGET=$OSMI_PROJECT/target/rivanna
-export OSMI_TRAIN=$OSMI_PROJECT/target/rivanna/tfserving/train
+export OSMI_PROJECT="$OSMI_PROJECT_BASE"
+export OSMI_TARGET=$OSMI_PROJECT/osmi-bench-new/target/rivanna
+export OSMI_TRAIN=$OSMI_PROJECT/osmi-bench-new/target/rivanna/tfserving/train
 
 export VENV=OSMI2
 

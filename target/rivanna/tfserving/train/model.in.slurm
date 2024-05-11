@@ -33,23 +33,24 @@ if [ -z "$OSMI_TARGET" ]; then
     echo "OSMI_TARGET is not set"
     exit 1
 fi
-export CONTAINER_DIR=$OSMI_TARGET/images/
+export CONTAINER_DIR=$OSMI_TRAIN/images
 
 module purge
 module load apptainer
 
 MODEL={experiment.model}
-CONTAINER=$CONTAINER_DIR/cloudmesh-tfs-23-10-nv.sif
+CONTAINER=$CONTAINER_DIR/tensorflow_23.10-tf2-py3.sif
 
 echo "============================================================"
 echo "PROJECT_ID: {identifier}"
 echo "MODELS_DIR: $MODELS_DIR"
 echo "MODEL: $MODEL"
 echo "REPEAT: {experiment.repeat}"
+echo "CONTAINER:" $CONTAINER
 
 PROGRESS "running" "training" 3
 
-cd $MODELS_DIR
+# cd $MODELS_DIR
 
 time apptainer exec --nv $CONTAINER python train.py $MODEL
 

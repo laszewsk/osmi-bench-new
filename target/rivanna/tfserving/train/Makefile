@@ -25,7 +25,7 @@ requirements:
 # PROJECT MANAGEMENT
 # #####################################################################
 
-project: project_slurm generate
+project: project-slurm generate
 
 #setup:
 #	python setup_env_and_yaml.py
@@ -39,6 +39,7 @@ submit:
 	-sh project-jobs-slurm.sh
 
 project-slurm:
+	cp ../../../../tfserving/train.py ../build/tfserving/train.py
 	mkdir -p project
 	cms ee generate \
 	        --source=model.in.slurm \
@@ -50,7 +51,7 @@ project-slurm:
 	        --output_dir=./project \
             --source_dir=. \
 		    --verbose \
-			--copycode="../build/tfserving/archs"
+			--copycode="../build/tfserving/archs,../build/tfserving/train.py"
 	cms ee generate submit --name=project --job_type=slurm > project-jobs-slurm.sh
 	cms ee list
 
@@ -85,74 +86,17 @@ get-results:
 # APPTAINER IMAGE BUILD
 # #####################################################################
 
+image: 
+	cd images/tensorflow; time make image
+
+shell:
+	cd images/tensorflow; make shell
+
 clean-images:
 	@-rm -rf images/*.sif
 
 images: image
 
-image: image-haproxy image-osmi image-tfs
-
-image-haproxy: # images/haproxy_latest.sif
-	-cd images; time apptainer pull docker://haproxy
-
-image-serving: # images/serving_latest-gpu.sif
-	-cd images; time apptainer pull docker://tensorflow/serving:latest-gpu
-
-
-image-osmi: # images/osmi.sif
-	-cd images; apptainer build osmi.sif osmi.def
-
-# broken?
-image-tfs: # images/tfs.sif
-	-cd images; time apptainer build tfs.sif tfs.def
-
-# broken?
-image-combined: # images/combined.sif
-	-cd images; apptainer build combined.sif combined.def
-
-
-# #####################################################################
-# APPTAINER IMAGE SHELL
-# #####################################################################
-
-shell:
-	apptainer ${BIND} shell --nv ${IMAGE}
-
-shell-serving:
-	apptainer ${BIND} shell --nv images/serving.sif
-
-# #####################################################################
-# THESE ARE NOT YET DONE AND JUST PLACEHOLDERS
-# #####################################################################
-
-# run-osmi:
-# 	# cd images; make run
-
-
-run-apptainer:
-	cd images; make run
-
-shell-apptainer:
-	cd images; make shell
-
-run-localscratch:
-	cd images; make run-localscratch
-
-shell-localscratch:
-	cd images; make shell-localscratch
-
-shell-rivanna:
-	cd images; make shell-rivanna
-
-run: run-apptainer
-
-# #####################################################################
-# THESE COMMANDS ARE ONLY FOR GREGOR
-# #####################################################################
-
-push:
-	-git push
-	ssh -tt rivanna "cd /scratch/thf2bn/mlcommons/benchmarks/${NAME}; ssh-add; git pull"
 
 
 

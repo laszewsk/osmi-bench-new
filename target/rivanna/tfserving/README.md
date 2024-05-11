@@ -26,8 +26,9 @@ pip install -r requirements.txt
 Dependencies should be installed with no error.
 
 ```bash
-sh images.sh
+cd $OSMI_PROJECT_BASE/osmi-bench-new/target/rivanna/tfserving/train
+time sh images.sh
 cd images
-make images
+time make images
 cd ..
 ```
