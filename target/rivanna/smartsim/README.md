@@ -11,7 +11,7 @@ module load py-smartsim-0.5.0-gcc-11.2.0
 ## Test if PyTorch can see the GPU
 
 ```
-import torch; torch.cuda.device_count()
+python -c 'import torch; print(torch.cuda.device_count())'
 ```
 
 ## Start RedisAI
@@ -37,3 +37,51 @@ python train.py small_lstm
 ```
 python benchmark.py small_lstm
 ```
+
+
+## Setup on Rivanna
+
+GPU INVERENCE cudatoolkit cudnn
+
+module load cuda/11.4.2
+# module load nccl/2.18.3-CUDA-12.2.2
+module load cudnn/8.9.4.25
+
+
+pip install smartsim
+
+
+wget https://github.com/git-lfs/git-lfs/releases/download/v3.5.1/git-lfs-linux-amd64-v3.5.1.tar.gz
+
+tar xvf  git-lfs-linux-amd64-v3.5.1.tar.gz
+
+export PATH=$PATH:$PWD/git-lfs-3.5.1
+
+smart clean
+smart build --device gpu 
+smart validate
+
+
+
+cudatoolkit 11.8.0
+cudnn       8.9.7
+
+
+## Ubuntu
+
+sudo apt install git-lfs
+python3.11 -m venv ~/ENV11
+source ~/ENV11/bin/activate
+
+pip install onnxruntime-gpu --extra-index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/
+
+python3 -m pip install tensorflow[and-cuda]
+
+smart clean
+smart build --device gpu 
+smart validate
+
+
+
+
+
