@@ -1,0 +1,19 @@
+Bootstrap: docker
+
+From:  nvcr.io/nvidia/tensorflow:24.03-tf2-py3
+ 
+
+%post
+    apt-get update 
+    apt install -y lsof
+    apt install -y git-lfs
+    apt install -y python3-pip
+    
+    pip install tqdm    
+
+	# pip install cloudmesh-common
+	# pip install cloudmesh-gpu
+    # pip install cloudmesh-apptainer
+    
+    # pip install smartsim
+    

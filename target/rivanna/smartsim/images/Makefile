@@ -1,5 +1,6 @@
 VERSION=24.04-py3
 IMAGE=cloudmesh-smartsim-${VERSION}
+TF-IMAGE=tf-cloudmesh-smartsim-${VERSION}
 
 
 image: ${IMAGE}.def
@@ -7,6 +8,13 @@ image: ${IMAGE}.def
 
 shell:
 	-apptainer shell --nv ${IMAGE}.sif
+
+tf-image: ${TF-IMAGE}.def
+	-apptainer build --force ${TF-IMAGE}.sif ${TF-IMAGE}.def
+
+tf-shell:
+	-apptainer shell --nv ${TF-IMAGE}.sif
+
 
 
 # watch: 
