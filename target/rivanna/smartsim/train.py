@@ -6,7 +6,9 @@ import os
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
+from cloudmesh.common.StopWatch import StopWatch
 
+StopWatch.start("init")
 parser = argparse.ArgumentParser()
 archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
 parser.add_argument('arch', type=str, choices=archs, help='Type of neural network architectures')
@@ -31,6 +33,10 @@ elif args.arch == "large_tcnn":
 else:
     raise ValueError("Model not supported. Need to specify input and output shapes")
 
+StopWatch.stop("init")
+
+StopWatch.start("setup")
+
 X = np.random.rand(samples, *input_shape).astype(np.float32)
 Y = np.random.rand(samples, *output_shape).astype(np.float32)
 
@@ -51,6 +57,9 @@ print(model)
 criterion = nn.MSELoss()  # Changed to MSE for demonstration, adjust as needed
 optimizer = torch.optim.Adam(model.parameters())
 
+StopWatch.stop("setup")
+
+StopWatch.start("train")
 # Train model
 model.train()
 for epoch in range(epochs):
@@ -61,9 +70,15 @@ for epoch in range(epochs):
         loss.backward()
         optimizer.step()
     print(f'Epoch {epoch+1}, Loss: {loss.item()}')
+StopWatch.stop("train")
+
 
 # Save model
+StopWatch.start("save")
 model.eval() 
 example_input = torch.rand(1, *input_shape)
 scripted_model = torch.jit.trace(model, example_input)
 scripted_model.save(f"{args.arch}_model.jit")
+StopWatch.stop("save")
+
+StopWatch.benchmark()
