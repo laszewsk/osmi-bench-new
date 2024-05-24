@@ -8,6 +8,8 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 from cloudmesh.common.StopWatch import StopWatch
 from cloudmesh_pytorchinfo import print_gpu_device_properties
+from cloudmesh.gpu.gpu import Gpu
+from pprint import pprint
 
 StopWatch.start("init")
 parser = argparse.ArgumentParser()
@@ -35,6 +37,13 @@ else:
     raise ValueError("Model not supported. Need to specify input and output shapes")
 
 print_gpu_device_properties()
+gpu = Gpu()
+
+gpu.probe()
+#print ("Vendor:", gpu.smi())
+information = gpu.system()
+pprint(information)
+
 
 StopWatch.stop("init")
 

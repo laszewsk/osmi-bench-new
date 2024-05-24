@@ -11,6 +11,8 @@ from tqdm import tqdm
 
 from cloudmesh.common.StopWatch import StopWatch
 from cloudmesh_pytorchinfo import print_gpu_device_properties
+from cloudmesh.gpu.gpu import Gpu
+from pprint import pprint
 
 StopWatch.start("init")
 parser = argparse.ArgumentParser()
@@ -44,6 +46,13 @@ models = {
           'lwmodel': isd('dense_input', (args.batch, 1426), np.float32),
          }
 print_gpu_device_properties()
+gpu = Gpu()
+
+gpu.probe()
+#print ("Vendor:", gpu.smi())
+information = gpu.system()
+pprint(information)
+
 StopWatch.stop("init")
 
 StopWatch.start("setup")

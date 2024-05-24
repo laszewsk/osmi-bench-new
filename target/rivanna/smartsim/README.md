@@ -70,7 +70,7 @@ module load cuda/11.8.0
 module load cudnn/8.9.7
 ```
 
-### INstall smartsim
+### Install smartsim and other software
 
 
 After this you can install in your python venv which is called OSMI2 the needed packages. You only need to do tha install onece.
@@ -78,6 +78,7 @@ After this you can install in your python venv which is called OSMI2 the needed 
 ```bash
 pip install smartsim
 pip install cloudmesh-common
+pip install cloudmesh-gpu
 wget https://github.com/git-lfs/git-lfs/releases/download/v3.5.1/git-lfs-linux-amd64-v3.5.1.tar.gz
 
 tar xvf  git-lfs-linux-amd64-v3.5.1.tar.gz
@@ -116,6 +117,9 @@ source ~/ENV11/bin/activate
 pip install onnxruntime-gpu --extra-index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/
 
 python3 -m pip install tensorflow[and-cuda]
+pip install cloudmesh-common
+pip install cloudmesh-gpu
+pip install smartsim
 
 smart clean
 smart build --device gpu 
