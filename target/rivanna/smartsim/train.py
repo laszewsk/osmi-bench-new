@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 from cloudmesh.common.StopWatch import StopWatch
+from cloudmesh_pytorchinfo import print_gpu_device_properties
 
 StopWatch.start("init")
 parser = argparse.ArgumentParser()
@@ -32,6 +33,8 @@ elif args.arch == "large_tcnn":
     output_shape = (101*82,)  # Adjust based on actual model architecture
 else:
     raise ValueError("Model not supported. Need to specify input and output shapes")
+
+print_gpu_device_properties()
 
 StopWatch.stop("init")
 

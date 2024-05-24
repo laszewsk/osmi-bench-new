@@ -9,6 +9,10 @@ import torch
 from smartredis import Client
 from tqdm import tqdm
 
+from cloudmesh.common.StopWatch import StopWatch
+import cloudmesh_pytorchinfo
+
+StopWatch.start("init")
 parser = argparse.ArgumentParser()
 archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
 parser.add_argument('arch', type=str, choices=archs, help='Type of neural network architectures')
@@ -39,7 +43,10 @@ models = {
           'swmodel': isd('dense_input', (args.batch, 3778), np.float32),
           'lwmodel': isd('dense_input', (args.batch, 1426), np.float32),
          }
+print_gpu_device_properties()
+StopWatch.stop("init")
 
+StopWatch.start("setup")
 data = np.array(np.random.random(models[args.arch]['shape']), dtype=models[args.arch]['dtype'])
 
 # Define model
@@ -59,6 +66,10 @@ model_buffer.seek(0)  # Reset buffer position to the beginning
 
 # Get the database address and create a SmartRedis client
 client = Client(address="localhost:6780", cluster=False)
+
+StopWatch.stop("setup")
+
+StopWatch.start("inference")    
 
 num_requests = 128
 
@@ -81,3 +92,6 @@ elapsed = sum(times)
 avg_inference_latency = elapsed/num_requests
 
 print(f"elapsed time: {elapsed:.1f}s | average inference latency: {avg_inference_latency:.3f}s | 99th percentile latency: {np.percentile(times, 99):.3f}s | ips: {1/avg_inference_latency:.1f}")
+StopWatch.stop("inference")
+
+StopWatch.benchmark()
