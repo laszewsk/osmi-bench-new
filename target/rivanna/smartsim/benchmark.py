@@ -46,13 +46,16 @@ models = {
           'lwmodel': isd('dense_input', (args.batch, 1426), np.float32),
          }
 print_gpu_device_properties()
-gpu = Gpu()
+try:
+    gpu = Gpu()
 
-gpu.probe()
-#print ("Vendor:", gpu.smi())
-information = gpu.system()
-pprint(information)
-
+    gpu.probe()
+    #print ("Vendor:", gpu.smi())
+    information = gpu.system()
+    pprint(information)
+except:
+    print ("This is not a cuda device")
+    
 StopWatch.stop("init")
 
 StopWatch.start("setup")

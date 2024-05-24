@@ -37,12 +37,15 @@ else:
     raise ValueError("Model not supported. Need to specify input and output shapes")
 
 print_gpu_device_properties()
-gpu = Gpu()
+try:
+    gpu = Gpu()
 
-gpu.probe()
-#print ("Vendor:", gpu.smi())
-information = gpu.system()
-pprint(information)
+    gpu.probe()
+    #print ("Vendor:", gpu.smi())
+    information = gpu.system()
+    pprint(information)
+except:
+    print ("This is not a cuda device")
 
 
 StopWatch.stop("init")
