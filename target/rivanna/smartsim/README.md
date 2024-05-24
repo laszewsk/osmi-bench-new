@@ -2,8 +2,23 @@
 
 This documentation is evoling
 
-# Rivanna Smartsim OSMI setup
+## Get the code
 
+login to rivanna with ssh (see infomall tutorial)
+
+```bash
+ssh rivanna
+cd /scratch/$USER
+git clone git@github.com:laszewsk/osmi-bench-new.git
+cd /scratch/$USER/osmi-bench-new
+```
+
+if you frequently work on it add into your .bashrc file
+
+export PROJECT_OSMI2=/scratch/$USER/osmi-bench-new
+alias osmi2='cd $PROJECT_OSMI2'
+
+this way you can enter the command osmi2 to jump to the right directory
 
 ## Setup environment on Frontier
 
