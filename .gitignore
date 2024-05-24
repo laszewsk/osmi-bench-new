@@ -2,3 +2,6 @@ __pycache__
 git-lfs*
 *.jit
 *~
+build
+tmp*
+*.sif

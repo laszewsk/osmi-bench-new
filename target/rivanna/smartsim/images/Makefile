@@ -1,19 +1,22 @@
-VERSION=24.04-py3
-IMAGE=cloudmesh-smartsim-${VERSION}
-TF-IMAGE=tf-cloudmesh-smartsim-${VERSION}
+PYTORCH_VERSION=24.05-py3
+TF_VERSION=24.05-tf2-py3
+PYTORCH_IMAGE=cloudmesh-pytorch-${PYTORCH_VERSION}
+TF_IMAGE=cloudmesh-tf-${TF_VERSION}
 
 
-image: ${IMAGE}.def
-	-apptainer build --force ${IMAGE}.sif ${IMAGE}.def
+images: pytorch-image tf-image
 
-shell:
-	-apptainer shell --nv ${IMAGE}.sif
+pytorch-image: ${PYTORCH_IMAGE}.def
+	-apptainer build --force ${PYTORCH_IMAGE}.sif ${PYTORCH_IMAGE}.def
+
+pytorch-shell:
+	-apptainer shell --nv ${PYTORCH_IMAGE}.sif
 
 tf-image: ${TF-IMAGE}.def
-	-apptainer build --force ${TF-IMAGE}.sif ${TF-IMAGE}.def
+	-apptainer build --force ${TF_IMAGE}.sif ${TF_IMAGE}.def
 
 tf-shell:
-	-apptainer shell --nv ${TF-IMAGE}.sif
+	-apptainer shell --nv ${TF_IMAGE}.sif
 
 
 
