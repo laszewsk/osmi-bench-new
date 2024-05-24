@@ -131,7 +131,7 @@ export IMAGE=cloudmesh-smartsim-${VERSION}
 python startdb.py & 
 lsof -i :6780
 apptainer exec $IMAGE python startdb.py
-apptainer exec $IMAGE python train.py small_lstm
+apptainer exec --nv images/$IMAGE.sif "python train.py small_lstm"
 
 
 ## Ubuntu

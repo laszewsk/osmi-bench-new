@@ -6,7 +6,7 @@ image: ${IMAGE}.def
 	-apptainer build --force ${IMAGE}.sif ${IMAGE}.def
 
 shell:
-	-singularity shell --nv ${IMAGE}.sif
+	-apptainer shell --nv ${IMAGE}.sif
 
 
 # watch: 
