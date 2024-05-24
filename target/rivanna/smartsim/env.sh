@@ -37,8 +37,11 @@ echo -n "Load   python/3.11.4, cuda/12.2.2 ... "
 module load gcc/11.4.0  openmpi/4.1.4 python/3.11.4 
 # module load cuda/12.2.2
 # module load nccl/2.18.3-CUDA-12.2.2
-module load cuda/11.4.2
-module load cudnn/8.9.4.25
+module load cuda/11.8.0
+module load cudnn/8.9.7
+
+#module load cuda/11.4.2
+#module load cudnn/8.9.4.25
 
 
 echo "done"

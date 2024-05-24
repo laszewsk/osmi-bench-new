@@ -29,13 +29,13 @@ lsof -i :6780
 ## Train model
 
 ```
-python train.py small_lstm
+time python train.py small_lstm
 ```
 
 ## Run benchmark
 
 ```
-python benchmark.py small_lstm
+time python benchmark.py small_lstm
 ```
 
 
@@ -43,9 +43,16 @@ python benchmark.py small_lstm
 
 GPU INVERENCE cudatoolkit cudnn
 
-module load cuda/11.4.2
+# module load cuda/11.4.2
 # module load nccl/2.18.3-CUDA-12.2.2
-module load cudnn/8.9.4.25
+# module load cudnn/8.9.4.25
+
+# module purge
+# module load intel-compilers/2023.1.0  impi/2021.9.0 python/3.9.16
+# module load cmake/3.28.1
+module load cuda/11.8.0
+module load cudnn/8.9.7
+
 
 
 pip install smartsim
