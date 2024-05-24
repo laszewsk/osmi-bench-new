@@ -10,7 +10,7 @@ from smartredis import Client
 from tqdm import tqdm
 
 from cloudmesh.common.StopWatch import StopWatch
-import cloudmesh_pytorchinfo
+from cloudmesh_pytorchinfo import print_gpu_device_properties
 
 StopWatch.start("init")
 parser = argparse.ArgumentParser()
