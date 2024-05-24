@@ -102,7 +102,20 @@ time python train.py small_lstm
 time python benchmark.py small_lstm
 ```
 
-### Run benchmark
+## Using Singularity container
+
+```bash
+cd images
+make image
+```
+
+export VERSION=24.04-py3
+export IMAGE=cloudmesh-smartsim-${VERSION}
+
+python startdb.py & 
+lsof -i :6780
+apptainer exec $IMAGE python startdb.py
+apptainer exec $IMAGE python train.py small_lstm
 
 
 ## Ubuntu

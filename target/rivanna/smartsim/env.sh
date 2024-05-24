@@ -44,6 +44,7 @@ module load cudnn/8.9.7
 #module load cudnn/8.9.4.25
 
 
+
 echo "done"
 echo -n "Create $USER_SCRATCH/${VENV}/bin/python ... "
 python -m venv $USER_SCRATCH/${VENV} # takes about 5.2s
