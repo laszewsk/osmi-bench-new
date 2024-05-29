@@ -5,10 +5,10 @@ FROM nvcr.io/nvidia/tensorflow:24.05-tf2-py3
 
 # Install additional dependencies
 RUN apt-get update 
-
 RUN apt-get install -y \
     lsof \
-    python3-pip
+    python3-pip \
+    git-lfs
 
 # Install TensorFlow Serving
 RUN pip install tensorflow-serving-api[and-cuda]
