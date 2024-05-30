@@ -2,6 +2,13 @@ PYTORCH_VERSION=24.05-py3
 TF_VERSION=24.05-tf2-py3
 PYTORCH_IMAGE=cloudmesh-pytorch-${PYTORCH_VERSION}
 TF_IMAGE=cloudmesh-tf-${TF_VERSION}
+UID=`id -u`
+GID=`id -g`
+
+DOCKER_FLAGS=--gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864
+DOCKER_USER=-v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro  --user ${UID}:${GID}
+
+
 
 image: docker-tf docker-torch
 
@@ -12,10 +19,10 @@ docker-torch:
 	docker build -t cloudmesh/torch -f Dockerfile.torch .
 
 shell-tf:
-	docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/tf bash
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/tf bash
 
 shell-torch:
-	docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/torch bash
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/torch bash
 
 #--ipc=host --ulimit memlock=-1 --ulimit stack=67108864  bash
 
