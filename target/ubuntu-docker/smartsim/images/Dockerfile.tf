@@ -11,13 +11,19 @@ RUN apt-get install -y \
     git-lfs
 
 # Install TensorFlow Serving
-RUN pip install tensorflow-serving-api[and-cuda]
+# RUN pip install tensorflow-serving-api[and-cuda]
 
 # Install other required packages
 RUN pip install grpcio numpy requests tqdm 
 
 # Install Cloudmesh
 RUN pip install cloudmesh-common cloudmesh-gpu cloudmesh-apptainer
+
+# Install SmartSim
+RUN pip install smartsim
+RUN smart clean
+RUN smart build --device=gpu 
+RUN smart validate
 
 # Set the working directory
 #WORKDIR /app

@@ -5,18 +5,29 @@ TF_IMAGE=cloudmesh-tf-${TF_VERSION}
 UID=`id -u`
 GID=`id -g`
 
+#CACHE=--no-cache
+CACHE=
+
 DOCKER_FLAGS=--gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864
 DOCKER_USER=-v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro  --user ${UID}:${GID}
-
+DOCKER_BUILD_FLAGS=--progress=plain ${CACHE}
 
 
 image: docker-tf docker-torch
 
 docker-tf:
-	docker build -t cloudmesh/tf -f Dockerfile.tf .
+	docker build ${DOCKER_BUILD_FLAGS} -t cloudmesh/tf -f Dockerfile.tf .
 
 docker-torch:
-	docker build -t cloudmesh/torch -f Dockerfile.torch .
+	docker build ${DOCKER_BUILD_FLAGS} -t cloudmesh/torch -f Dockerfile.torch .
+
+docker-cl:
+	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+	docker build ${DOCKER_BUILD_FLAGS} -t cloudmesh/cl -f Dockerfile.cl .
+
+
+shell-cl:
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/cl bash
 
 shell-tf:
 	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/tf bash
