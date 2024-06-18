@@ -13,6 +13,24 @@ DOCKER_USER=-v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro  --user ${
 DOCKER_BUILD_FLAGS=--progress=plain ${CACHE}
 
 
+# ubuntu image
+# driver=555.82.01
+# toolkit 12.5.0
+# PYTHON 3.10.8
+# TF=
+# TORCH=
+# SMARTSIM=
+
+# BAREMETAL
+# DOCKER
+# singularity
+
+
+# Cloudmesh= DONT care 
+
+osmi=config.yaml
+
+
 image: docker-tf docker-torch
 
 docker-tf:
@@ -22,12 +40,17 @@ docker-torch:
 	docker build ${DOCKER_BUILD_FLAGS} -t cloudmesh/torch -f Dockerfile.torch .
 
 docker-cl:
-	wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+	# wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
 	docker build ${DOCKER_BUILD_FLAGS} -t cloudmesh/cl -f Dockerfile.cl .
 
 
 shell-cl:
 	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/cl bash
+
+
+shell-cl-su:
+	docker run ${DOCKER_FLAGS}  -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/cl bash
+
 
 shell-tf:
 	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/tf bash

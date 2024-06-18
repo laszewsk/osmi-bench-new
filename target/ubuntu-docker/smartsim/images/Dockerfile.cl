@@ -1,4 +1,6 @@
-FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
+#FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
+
+FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu18.04
 
 #FROM nvidia/cuda:12.5.0-base-ubuntu22.04
 
@@ -6,18 +8,11 @@ FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
 #FROM nvidia/cuda:12.5.0-devel-ubuntu22.04
 
 ENV TZ="America/New_York"
-ENV CUDNN_LIBRARY="/usr/lib/x86_64-linux-gnu/libcudnn.so.9"
+# ENV CUDNN_LIBRARY="/usr/lib/x86_64-linux-gnu/libcudnn.so.9"
 # ENV CUDNN_INCLUDE_DIR
 # ENV CUDNN_INCLUDE_PATH
-ENV CUDNN_LIBRARY_PATH="/usr/local/cuda-12.4"
-ENV CUDA_TOOLKIT_ROOT_DIR="/usr/local/cuda-12.4"
-
-
-# RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
-RUN dpkg -i cuda-keyring_1.1-1_all.deb
-RUN apt-get update
-RUN apt-get install cuda-toolkit -y
-
+# ENV CUDNN_LIBRARY_PATH="/usr/local/cuda-12.4"
+# ENV CUDA_TOOLKIT_ROOT_DIR="/usr/local/cuda-12.4"
 
 
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -30,6 +25,12 @@ RUN apt install -y \
     wget \
     unzip \
     zlib1g
+
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+RUN dpkg -i cuda-keyring_1.1-1_all.deb
+RUN apt-get update
+RUN apt-get install cuda-toolkit -y
+
 
 RUN apt install -y git-all git-lfs --fix-missing
 
@@ -56,5 +57,5 @@ RUN pip install torch
 # Install SmartSim
 RUN pip install smartsim
 RUN smart clean
-RUN smart build --device=gpu 
+RUN smart build --device=gpu --onnx
 RUN smart validate
