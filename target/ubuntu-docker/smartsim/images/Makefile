@@ -12,7 +12,6 @@ DOCKER_FLAGS=--gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864
 DOCKER_USER=-v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro  --user ${UID}:${GID}
 DOCKER_BUILD_FLAGS=--progress=plain ${CACHE}
 
-
 # ubuntu image
 # driver=555.82.01
 # toolkit 12.5.0
@@ -31,7 +30,15 @@ DOCKER_BUILD_FLAGS=--progress=plain ${CACHE}
 osmi=config.yaml
 
 
-image: docker-tf docker-torch
+vanilla:
+	rm -rf ~/Desktop/osmi-bench-new/ashao/SmartSim 
+	cd ~/Desktop/osmi-bench-new/ashao/ ; 	git clone --branch docker-gpu https://github.com/ashao/SmartSim.git
+	cd ~/Desktop/osmi-bench-new/ashao/SmartSim/docker/prod-cuda12; \
+		docker build ${DOCKER_BUILD_FLAG} -t smartsim:cuda-12 .
+	docker run -it ${DOCKER_FLAGS} ${DOCKER_USER} -w /tmp smartsim:cuda-12 smart validate
+
+image: docker-tf 
+#docker-torch
 
 docker-tf:
 	docker build ${DOCKER_BUILD_FLAGS} -t cloudmesh/tf -f Dockerfile.tf .
@@ -118,3 +125,7 @@ tf-shell:
 # 	watch tail -n 50 *.err
 
 # all: delete clean image submit view
+
+clean:
+	docker system prune -a --volumes
+	docker rm -vf $(docker ps -aq)
