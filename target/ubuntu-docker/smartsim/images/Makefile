@@ -4,6 +4,7 @@ PYTORCH_IMAGE=cloudmesh-pytorch-${PYTORCH_VERSION}
 TF_IMAGE=cloudmesh-tf-${TF_VERSION}
 UID=`id -u`
 GID=`id -g`
+CODE=/home/green/Desktop/osmi-bench-new/target/ubuntu-docker/smartsim
 
 #CACHE=--no-cache
 CACHE=
@@ -69,6 +70,12 @@ shell-torch:
 
 #${PWD}:${PWD} -w ${PWD} bash
 
+
+benchmark-train:
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${CODE}:${CODE} -w ${CODE} -it cloudmesh/tf bash -c "python3 train.py small_lstm"
+
+benchmark:
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${CODE}:${CODE} -w ${CODE} -it cloudmesh/tf bash -c "/bin/sh bench.sh"
 
 
 images: pytorch-image tf-image

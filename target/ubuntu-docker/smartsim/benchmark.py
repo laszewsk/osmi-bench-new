@@ -86,14 +86,16 @@ StopWatch.start("inference")
 num_requests = 128
 
 times = list()
+# 
 
+# set SR_LOG_LEVEL to switch off redis logging
 for _ in tqdm(range(num_requests)):
     tik = time.perf_counter()
     client.put_tensor("input", torch.rand(models[args.arch]['shape']).numpy())
     # put the PyTorch CNN in the database in GPU memory
     # BUG NEEDS GPU LIST
-    # client.set_model("cnn", model_buffer.getvalue(), "TORCH", device="GPU:0")
-    client.set_model("cnn", model_buffer.getvalue(), "TORCH", device="CPU")
+    client.set_model("cnn", model_buffer.getvalue(), "TORCH", device="GPU:0")
+    #client.set_model("cnn", model_buffer.getvalue(), "TORCH", device="CPU")
     # execute the model, supports a variable number of inputs and outputs
     client.run_model("cnn", inputs=["input"], outputs=["output"])
     # get the output

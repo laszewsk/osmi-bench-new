@@ -90,10 +90,21 @@ StopWatch.stop("train")
 
 # Save model
 StopWatch.start("save")
-model.eval() 
-example_input = torch.rand(1, *input_shape)
+
+device_name = "cuda"  # Default to GPU
+
+# device_name = "cpu"
+
+## model = getattr(models, model_name)(pretrained=True)
+model.to(torch.device(device_name))
+model.eval()
+
+example_input = torch.rand(1, *input_shape, device=device_name)
 scripted_model = torch.jit.trace(model, example_input)
 scripted_model.save(f"{args.arch}_model.jit")
+
+
+
 StopWatch.stop("save")
 
 StopWatch.benchmark()
