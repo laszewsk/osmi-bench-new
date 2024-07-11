@@ -93,7 +93,6 @@ tf-shell:
 	-apptainer shell --nv ${TF_IMAGE}.sif
 
 
-
 # watch: 
 # 	watch squeue --format=\"%.18i %.9P %.50j %.8u %.8T %.10M %.9l %.6D %R\" --me
 
