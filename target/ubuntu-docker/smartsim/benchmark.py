@@ -134,5 +134,7 @@ avg_inference_latency = elapsed/num_requests
 print(f"elapsed time: {elapsed:.1f}s | average inference latency: {avg_inference_latency:.3f}s | 99th percentile latency: {np.percentile(times, 99):.3f}s | ips: {1/avg_inference_latency:.1f}")
 StopWatch.stop("inference")
 
-StopWatch.benchmark(tag=
-    f"elapsed time={elapsed:.1f}s,average inference latency={avg_inference_latency:.3f}s,99th percentile latency={np.percentile(times, 99):.3f}s,ips={1/avg_inference_latency:.1f}")
+tag = f"elapsed time={elapsed:.1f}s,average inference latency={avg_inference_latency:.3f}s,99th percentile latency={np.percentile(times, 99):.3f}s,ips={1/avg_inference_latency:.1f}"
+
+StopWatch.benchmark(tag=tag, 
+                    attributes=["timer", "time", "start", "tag", "msg"])
