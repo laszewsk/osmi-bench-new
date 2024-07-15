@@ -13,23 +13,49 @@ from cloudmesh.common.StopWatch import StopWatch
 from cloudmesh_pytorchinfo import print_gpu_device_properties
 from cloudmesh.gpu.gpu import Gpu
 from pprint import pprint
+from cloudmesh.common.FlatDict import FlatDict
+from cloudmesh.common.console import Console
 
 StopWatch.start("init")
-parser = argparse.ArgumentParser()
-archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
-parser.add_argument('arch', type=str, choices=archs, help='Type of neural network architectures')
-parser.add_argument('-b', '--batch', type=int, default=1, help='batch size')
-parser.add_argument('-n', default=128, type=int, help='number of requests')
-args = parser.parse_args()
+
+
+config = FlatDict()
+config.load("config.yaml")
+
+print(config)
+
+# check experiment parameters
+
+terminate = False
+for key in ["experiment.arch",
+            "experiment.samples", 
+            "experiment.epochs", 
+            "experiment.batch_size",
+            "experiment.requests"]:
+    if key not in config:
+        Console.error(f"{key} not defined in config.yaml")
+        terminate = True
+
+if terminate:
+    sys.exit()
+
+
+
+# Parameters
+samples = int(config["experiment.samples"])
+epochs = int(config["experiment.epochs"])
+batch = batch_size = int(config["experiment.batch_size"])    
+arch = config["experiment.arch"]
+num_requests = requests = int(config["experiment.requests"])
 
 # Compute synthetic data for X and Y
-if args.arch == "small_lstm":
+if arch == "small_lstm":
     input_shape = (8, 48)  # Sequence length, feature size
     output_shape = (24,)  # Total output size
-elif args.arch == "medium_cnn":
+elif arch == "medium_cnn":
     input_shape = (9, 101, 82)  # Channels, Height, Width
     output_shape = (101*82,)  # Flattened output size
-elif args.arch == "large_tcnn":
+elif arch == "large_tcnn":
     input_shape = (9, 101, 82)  # Channels, Depth, Height, Width for 3D CNNs, but let's simplify
     output_shape = (101*82,)  # Adjust based on actual model architecture
 else:
@@ -39,11 +65,11 @@ else:
 isd = lambda a, b, c : {'inputs': a, 'shape': b, 'dtype': c}
 
 models = {
-          'small_lstm': isd('inputs', (args.batch, 8, 48), np.float32),
-          'medium_cnn': isd('inputs', (args.batch, 101, 82, 9), np.float32),
-          'large_tcnn': isd('inputs', (args.batch, 3, 101, 82, 9), np.float32),
-          'swmodel': isd('dense_input', (args.batch, 3778), np.float32),
-          'lwmodel': isd('dense_input', (args.batch, 1426), np.float32),
+          'small_lstm': isd('inputs', (batch, 8, 48), np.float32),
+          'medium_cnn': isd('inputs', (batch, 101, 82, 9), np.float32),
+          'large_tcnn': isd('inputs', (batch, 3, 101, 82, 9), np.float32),
+          'swmodel': isd('dense_input', (batch, 3778), np.float32),
+          'lwmodel': isd('dense_input', (batch, 1426), np.float32),
          }
 print_gpu_device_properties()
 try:
@@ -59,15 +85,15 @@ except:
 StopWatch.stop("init")
 
 StopWatch.start("setup")
-data = np.array(np.random.random(models[args.arch]['shape']), dtype=models[args.arch]['dtype'])
+data = np.array(np.random.random(models[arch]['shape']), dtype=models[arch]['dtype'])
 
 # Define model
-model_module = importlib.import_module('archs.' + args.arch)
+model_module = importlib.import_module('archs.' + arch)
 torch_model = model_module.build_model(input_shape)
 print(torch_model)
 
 # Load the TorchScript model
-model_path = f'{args.arch}_model.jit'
+model_path = f'{arch}_model.jit'
 torch_model = torch.jit.load(model_path)
 torch_model.eval()  # Ensure the model is in evaluation mode
 
@@ -83,15 +109,13 @@ StopWatch.stop("setup")
 
 StopWatch.start("inference")    
 
-num_requests = 128
-
 times = list()
 # 
 
 # set SR_LOG_LEVEL to switch off redis logging
 for _ in tqdm(range(num_requests)):
     tik = time.perf_counter()
-    client.put_tensor("input", torch.rand(models[args.arch]['shape']).numpy())
+    client.put_tensor("input", torch.rand(models[arch]['shape']).numpy())
     # put the PyTorch CNN in the database in GPU memory
     # BUG NEEDS GPU LIST
     client.set_model("cnn", model_buffer.getvalue(), "TORCH", device="GPU:0")

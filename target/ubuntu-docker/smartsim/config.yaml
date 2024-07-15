@@ -6,3 +6,4 @@ experiment:
   samples: 100
   epochs: 5
   batch_size: 1
+  requests: 128

@@ -28,7 +28,8 @@ terminate = False
 for key in ["experiment.arch",
             "experiment.samples", 
             "experiment.epochs", 
-            "experiment.batch_size"]:
+            "experiment.batch_size",
+            "experiment.requests"]:
     if key not in config:
         Console.error(f"{key} not defined in config.yaml")
         terminate = True
@@ -43,6 +44,7 @@ samples = int(config["experiment.samples"])
 epochs = int(config["experiment.epochs"])
 batch_size = int(config["experiment.batch_size"])    
 arch = config["experiment.arch"]
+requests = int(config["experiment.requests"])
 
 # Compute synthetic data for X and Y
 if arch == "small_lstm":

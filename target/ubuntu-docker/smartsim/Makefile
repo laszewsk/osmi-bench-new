@@ -19,3 +19,6 @@ help:
 train:
 	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${CODE}:${CODE} -v ${HOME}:${HOME} -w ${CODE} -it cloudmesh/tf bash -c "python3 train.py"
 
+
+bench:
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${CODE}:${CODE} -v ${HOME}:${HOME} -w ${CODE} -it cloudmesh/tf bash -c "sh bench.sh"
