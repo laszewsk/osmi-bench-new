@@ -4,7 +4,8 @@ PYTORCH_IMAGE=cloudmesh-pytorch-${PYTORCH_VERSION}
 TF_IMAGE=cloudmesh-tf-${TF_VERSION}
 UID=`id -u`
 GID=`id -g`
-CODE=${HOME}/Desktop/osmi-bench-new/target/ubuntu-docker/smartsim
+# CODE=${HOME}/Desktop/osmi-bench-new/target/ubuntu-docker/smartsim
+CODE=$(shell pwd)
 
 #CACHE=--no-cache
 CACHE=
@@ -26,7 +27,7 @@ bench:
 	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${HOME}:${HOME} -v ${CODE}:${CODE} -w ${CODE} -it cloudmesh/smartsim bash -c "/bin/sh bench.sh"
 
 
-train-setup: clean
+train-setup: train-clean
 	mkdir -p project-train
 	cms ee generate \
 	        --source=bench-train.in.sh \
@@ -38,7 +39,7 @@ train-setup: clean
 	        --output_dir=./project-train \
             --source_dir=. \
 		    --verbose \
-			--copycode="train.py,archs,Makefile" 
+			--copycode="train.py,archs,Makefile,cloudmesh_pytorchinfo.py" 
 	cms ee generate submit --name=project-train --job_type=bash > project-jobs-train.sh
 	cms ee list project-train 
 
@@ -48,10 +49,32 @@ train-run:
 train-clean:
 	@-rm -rf project-train project-train.json jobs-project-train.sh
 	@-rm -rf '__pycache__'
+	@-rm -rf 'archs/__pycache__'
 	@-rm -rf *~
+	
 
-clean:
-	@-rm -rf project-train project-train.json jobs-project-train.sh
-	@-rm -rf project project.json jobs-project.sh
+infer-setup: infer-clean
+	mkdir -p project-infer
+	cms ee generate \
+	        --source=bench-infer.in.sh \
+	        --config=config.in.yaml \
+	        --name=project-infer \
+	        --noos \
+	        --os=USER,HOME \
+		   	--nocm \
+	        --output_dir=./project-infer \
+            --source_dir=. \
+		    --verbose \
+			--copycode="startdb.py,train.py,benchmark.py,archs,Makefile,bench.sh,cloudmesh_pytorchinfo.py" 
+	cms ee generate submit --name=project-infer --job_type=bash > project-jobs-infer.sh
+	cms ee list project-infer 
+
+infer-run: 
+	sh project-jobs-infer.sh
+
+infer-clean:
+	@-rm -rf project-infer project-infer.json jobs-project-infer.sh
 	@-rm -rf '__pycache__'
 	@-rm -rf *~
+
+clean: infer-clean train-clean

@@ -28,6 +28,7 @@ print(config)
 
 terminate = False
 for key in ["experiment.arch",
+            "experiment.repeat", 
             "experiment.samples", 
             "experiment.epochs", 
             "experiment.batch_size",
@@ -42,6 +43,8 @@ if terminate:
 
 
 # Parameters
+mode = "inference"
+repeat = int(config["experiment.repeat"])
 samples = int(config["experiment.samples"])
 epochs = int(config["experiment.epochs"])
 batch = batch_size = int(config["experiment.batch_size"])    
@@ -134,7 +137,10 @@ avg_inference_latency = elapsed/num_requests
 print(f"elapsed time: {elapsed:.1f}s | average inference latency: {avg_inference_latency:.3f}s | 99th percentile latency: {np.percentile(times, 99):.3f}s | ips: {1/avg_inference_latency:.1f}")
 StopWatch.stop("inference")
 
-tag = f"elapsed time={elapsed:.1f}s,average inference latency={avg_inference_latency:.3f}s,99th percentile latency={np.percentile(times, 99):.3f}s,ips={1/avg_inference_latency:.1f}"
+
+tag_base = f"mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
+
+tag = f"{tag_base},elapsed time={elapsed:.1f}s,average inference latency={avg_inference_latency:.3f}s,99th percentile latency={np.percentile(times, 99):.3f}s,ips={1/avg_inference_latency:.1f}"
 
 StopWatch.benchmark(tag=tag, 
                     attributes=["timer", "time", "start", "tag", "msg"])

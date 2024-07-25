@@ -38,6 +38,7 @@ print(config)
 
 terminate = False
 for key in ["experiment.arch",
+            "experiment.repeat", 
             "experiment.samples", 
             "experiment.epochs", 
             "experiment.batch_size",
@@ -50,8 +51,9 @@ if terminate:
     sys.exit()
 
 
-
 # Parameters
+mode = "train"
+repeat = int(config["experiment.repeat"])
 samples = int(config["experiment.samples"])
 epochs = int(config["experiment.epochs"])
 batch_size = int(config["experiment.batch_size"])    
@@ -142,7 +144,10 @@ scripted_model.save(f"{arch}_model.jit")
 
 StopWatch.stop("save")
 
-tag = f"arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
+tag = f"mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
 
 StopWatch.benchmark(tag=tag, 
                     attributes=["timer", "time", "start", "tag", "msg"])
+
+
+print (tag)
