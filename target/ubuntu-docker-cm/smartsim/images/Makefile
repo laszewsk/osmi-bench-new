@@ -41,7 +41,7 @@ all:
 # 	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${PWD}:${PWD} -w ${PWD} -it cloudmesh/smartsim bash
 
 benchmark-train:
-	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${HOME}:${HOME} -v ${CODE}:${CODE} -w ${CODE} -it cloudmesh/smartsim bash -c "python3 train.py small_lstm"
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${HOME}:${HOME} -v ${CODE}:${CODE} -w ${CODE} -it cloudmesh/smartsim bash -c "python3 train.py"
 
 benchmark:
 	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${HOME}:${HOME} -v ${CODE}:${CODE} -w ${CODE} -it cloudmesh/smartsim bash -c "/bin/sh bench.sh"

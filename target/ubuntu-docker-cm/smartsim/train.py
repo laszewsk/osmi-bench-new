@@ -1,4 +1,5 @@
-"""usage: python train.py {small_lstm|medium_cnn|large_tcnn}"""
+"""usage: python train.py [--config=config.yaml] -- It assumes that the config.yaml file is in the same directory as this script.
+"""
 import sys
 # import argparse
 import importlib
@@ -13,12 +14,23 @@ from cloudmesh.gpu.gpu import Gpu
 from pprint import pprint
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.console import Console
+import argparse
+
+
+# Parse command line arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("--config", default="config.yaml", help="Path to config file")
+args = parser.parse_args()
+config_file = args.config
+if not os.path.isfile(config_file):
+    print(f"Config file '{config_file}' does not exist")
+    sys.exit()
 
 
 StopWatch.start("init")
 
 config = FlatDict()
-config.load("config.yaml")
+config.load(config_file)
 
 print(config)
 

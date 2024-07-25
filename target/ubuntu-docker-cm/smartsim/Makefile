@@ -13,12 +13,36 @@ DOCKER_FLAGS=--gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864
 DOCKER_USER=-v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro  --user ${UID}:${GID}
 DOCKER_BUILD_FLAGS=--progress=plain ${CACHE}
 
+image:
+	cd images; make all
+
 help:
-	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${CODE}:${CODE} -v ${HOME}:${HOME} -w ${CODE} -it cloudmesh/tf bash -c "python3 train.py --help"
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${CODE}:${CODE} -v ${HOME}:${HOME} -w ${CODE} -it cloudmesh/smartsim bash -c "python3 train.py --help"
 
 train:
-	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${CODE}:${CODE} -v ${HOME}:${HOME} -w ${CODE} -it cloudmesh/tf bash -c "python3 train.py"
-
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${HOME}:${HOME} -v ${CODE}:${CODE} -w ${CODE} -it cloudmesh/smartsim bash -c "python3 train.py"
 
 bench:
-	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${CODE}:${CODE} -v ${HOME}:${HOME} -w ${CODE} -it cloudmesh/tf bash -c "sh bench.sh"
+	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${HOME}:${HOME} -v ${CODE}:${CODE} -w ${CODE} -it cloudmesh/smartsim bash -c "/bin/sh bench.sh"
+
+
+project-cm-train: clean
+	mkdir -p project-train
+	cms ee generate \
+	        --source=bench-train.in.sh \
+	        --config=config.in.yaml \
+	        --name=project \
+	        --noos \
+	        --os=USER,HOME \
+		   	--nocm \
+	        --output_dir=./project \
+            --source_dir=. \
+		    --verbose \
+			--copycode="train.py,archs"
+	cms ee generate submit --name=project --job_type=bash > project-jobs-train.sh
+	cms ee list
+
+clean:
+	@-rm -rf project project.json jobs-project.sh
+	@-rm -rf '__pycache__'
+	@-rm -rf *~
