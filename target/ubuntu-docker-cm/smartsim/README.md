@@ -63,7 +63,7 @@ project-infer
 In these directories you will find a complete copy of the code as well as the log file results what can then be mined.
 
 
-## TRaining only run
+## Training only run
 
 To setup the training experiments only without inference based on the config.in.yaml file use 
 
