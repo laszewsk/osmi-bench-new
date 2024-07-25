@@ -85,44 +85,6 @@ project-train
 
 
 
-## Ubuntu - Native - no longer up to date
-
-For Ubuntu the setup is as follows
-
-```bash
-sudo apt install git-lfs
-python3.11 -m venv ~/ENV11
-source ~/ENV11/bin/activate
-
-pip install onnxruntime-gpu 
-# --extra-index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/
-
-pip install cloudmesh-common cloudmesh-gpu
-
-python3 -m pip install tensorflow[and-cuda]
-python3 -m pip install torch
-
-
-pip install smartsim
-smart clean
-smart build --device gpu 
-smart validate
-
-make train
-make bench
-```
-
-### Run the benchmark
-
-```bash
-python -c 'import torch; print(torch.cuda.device_count())'
-python startdb.py & 
-lsof -i :6780
-time python train.py small_lstm
-time python benchmark.py small_lstm
-```
-
-
 # Appendix
 
 
@@ -157,6 +119,17 @@ to run the code with config.yam say
 ```
 make train
 make bench
+```
+
+
+### Run the benchmark by hand
+
+```bash
+python -c 'import torch; print(torch.cuda.device_count())'
+python startdb.py & 
+lsof -i :6780
+time python train.py small_lstm
+time python benchmark.py small_lstm
 ```
 
 
