@@ -26,23 +26,32 @@ bench:
 	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${HOME}:${HOME} -v ${CODE}:${CODE} -w ${CODE} -it cloudmesh/smartsim bash -c "/bin/sh bench.sh"
 
 
-project-cm-train: clean
+train-setup: clean
 	mkdir -p project-train
 	cms ee generate \
 	        --source=bench-train.in.sh \
 	        --config=config.in.yaml \
-	        --name=project \
+	        --name=project-train \
 	        --noos \
 	        --os=USER,HOME \
 		   	--nocm \
-	        --output_dir=./project \
+	        --output_dir=./project-train \
             --source_dir=. \
 		    --verbose \
-			--copycode="train.py,archs"
-	cms ee generate submit --name=project --job_type=bash > project-jobs-train.sh
-	cms ee list
+			--copycode="train.py,archs,Makefile" 
+	cms ee generate submit --name=project-train --job_type=bash > project-jobs-train.sh
+	cms ee list project-train 
+
+train-run: 
+	sh project-jobs-train.sh
+
+train-clean:
+	@-rm -rf project-train project-train.json jobs-project-train.sh
+	@-rm -rf '__pycache__'
+	@-rm -rf *~
 
 clean:
+	@-rm -rf project-train project-train.json jobs-project-train.sh
 	@-rm -rf project project.json jobs-project.sh
 	@-rm -rf '__pycache__'
 	@-rm -rf *~
