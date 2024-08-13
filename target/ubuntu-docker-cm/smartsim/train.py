@@ -51,6 +51,7 @@ if terminate:
     sys.exit()
 
 
+# TODO: Refactor to a dataclass
 # Parameters
 mode = "train"
 repeat = int(config["experiment.repeat"])

@@ -3,33 +3,36 @@ import importlib
 import io
 import numpy as np
 import os
-import time
+import sys
 import torch
 
+from smartsim import Experiment
 from smartredis import Client
 from tqdm import tqdm
+from pathlib import Path
+
+REDISAI_DEVICES = {
+    'cpu': 'CPU',
+    'cuda': 'GPU'
+}
+# Get the full path to the inferencer application
+INFERENCER = Path(__file__).parent.resolve() / "inferencer.py"
+# If batching is requested, wait 10ms to aggregate inference requests
+DEFAULT_BATCH_TIMEOUT = 10
 
 parser = argparse.ArgumentParser()
 archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
 parser.add_argument('arch', type=str, choices=archs, help='Type of neural network architectures')
+parser.add_argument('device', type=str, choices = ["cpu", "cuda"], default="cpu", help='The target device for the trained model')
 parser.add_argument('-b', '--batch', type=int, default=1, help='batch size')
 parser.add_argument('-n', default=128, type=int, help='number of requests')
+parser.add_argument('replicas', default=1, type=int, help='Number of simultaneous inference applications to run')
+parser.add_argument('use_batching', type=bool, action='store_true', help='Batch inference requests from multiple clients')
 args = parser.parse_args()
 
-# Compute synthetic data for X and Y
-if args.arch == "small_lstm":
-    input_shape = (8, 48)  # Sequence length, feature size
-    output_shape = (24,)  # Total output size
-elif args.arch == "medium_cnn":
-    input_shape = (9, 101, 82)  # Channels, Height, Width
-    output_shape = (101*82,)  # Flattened output size
-elif args.arch == "large_tcnn":
-    input_shape = (9, 101, 82)  # Channels, Depth, Height, Width for 3D CNNs, but let's simplify
-    output_shape = (101*82,)  # Adjust based on actual model architecture
-else:
-    raise ValueError("Model not supported. Need to specify input and output shapes")
+redisai_device = REDISAI_DEVICES[args.device]
 
-
+# TODO: Refactor this to a namedtuple
 isd = lambda a, b, c : {'inputs': a, 'shape': b, 'dtype': c}
 
 models = {
@@ -40,7 +43,8 @@ models = {
           'lwmodel': isd('dense_input', (args.batch, 1426), np.float32),
          }
 
-data = np.array(np.random.random(models[args.arch]['shape']), dtype=models[args.arch]['dtype'])
+input_shape = models[args.arch]['shape']
+data = np.array(np.random.random(input_shape, dtype=models[args.arch]['dtype']))
 
 # Define model
 model_module = importlib.import_module('archs.' + args.arch)
@@ -57,27 +61,45 @@ model_buffer = io.BytesIO()
 torch.jit.save(torch_model, model_buffer)
 model_buffer.seek(0)  # Reset buffer position to the beginning
 
+# Make a SmartSim experiment and start the server
+exp = Experiment("Inference-Benchmark", launcher="local")
+# TODO: Update this to allow inference server to be scaled across multiple nodes
+db = exp.create_database(port=6780, interface="lo")
+exp.generate(db)
+exp.start(db)
+
 # Get the database address and create a SmartRedis client
-client = Client(address="localhost:6780", cluster=False)
+client = Client(address=db.get_address()[0], cluster=False)
+# put the PyTorch CNN in the database in GPU memory
+batch_timeout = DEFAULT_BATCH_TIMEOUT if args.use_batching else 0
+batch_size = args.batch*args.replicas if args.use_batching else args.batch
+client.set_model(
+    "cnn",
+    model_buffer.getvalue(),
+    "TORCH",
+    device=redisai_device,
+    min_batch_timeout=batch_timeout,
+    batch_size=batch_size
+)
 
-num_requests = 128
+# Create the inferencer representative
+inferencer_run_settings = exp.create_run_settings(
+    exe=sys.executable,
+    exe_args=[
+        INFERENCER,
+        args.arch,
+        f"-b {args.batch}",
+        f"-n {args.n}",
+    ]
+)
 
-times = list()
+ensemble = exp.create_ensemble(
+    "inferencer",
+    inferencer_run_settings,
+    replicas=args.replicas
+)
+# Make sure that keys from each replica do not overlap
+for model in ensemble:
+    model.register_incoming_entity(model)
 
-for _ in tqdm(range(num_requests)):
-    tik = time.perf_counter()
-    client.put_tensor("input", torch.rand(models[args.arch]['shape']).numpy())
-    # put the PyTorch CNN in the database in GPU memory
-    client.set_model("cnn", model_buffer.getvalue(), "TORCH", device="CPU")
-    # execute the model, supports a variable number of inputs and outputs
-    client.run_model("cnn", inputs=["input"], outputs=["output"])
-    # get the output
-    output = client.get_tensor("output")
-    #print(f"Prediction: {output}")
-    tok = time.perf_counter()
-    times.append(tok - tik)
-
-elapsed = sum(times)
-avg_inference_latency = elapsed/num_requests
-
-print(f"elapsed time: {elapsed:.1f}s | average inference latency: {avg_inference_latency:.3f}s | 99th percentile latency: {np.percentile(times, 99):.3f}s | ips: {1/avg_inference_latency:.1f}")
+exp.start(ensemble, block=True)

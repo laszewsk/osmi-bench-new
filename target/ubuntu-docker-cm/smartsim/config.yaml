@@ -7,3 +7,6 @@ experiment:
   epochs: 5
   batch_size: 1
   requests: 128
+  batch_requests: True
+  replicas: 1
+  num_gpus: 1
