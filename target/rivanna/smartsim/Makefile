@@ -15,6 +15,8 @@ DOCKER_USER=-v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro  --user ${
 DOCKER_BUILD_FLAGS=--progress=plain ${CACHE}
 
 image:
+	module load apptainer
+	module load cuda/12.4.1
 	cd images; make apptainer-image
 
 help:

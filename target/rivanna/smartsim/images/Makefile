@@ -18,7 +18,7 @@ osmi=config.yaml
 
 banner = @echo "------------------------"; \
 		 echo "$1"; \
-		 echo "------------------------"
+		 echo "------------------------"	
 
 apptainer-image:
 	-apptainer build --force ${APPTAINER_IMAGE}.sif ${APPTAINER_IMAGE}.def
