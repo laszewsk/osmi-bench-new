@@ -1,6 +1,6 @@
 PYTORCH_VERSION=24.05-py3
 TF_VERSION=24.05-tf2-py3
-APPTAINER_IMAGE=cloudmesh-smartsim
+PYTORCH_IMAGE=cloudmesh-pytorch-${PYTORCH_VERSION}
 TF_IMAGE=cloudmesh-tf-${TF_VERSION}
 UID=`id -u`
 GID=`id -g`
@@ -19,12 +19,6 @@ osmi=config.yaml
 banner = @echo "------------------------"; \
 		 echo "$1"; \
 		 echo "------------------------"
-
-apptainer-image:
-	-apptainer build --force ${APPTAINER_IMAGE}.sif ${APPTAINER_IMAGE}.def
-
-apptainer-shell:
-	-apptainer shell --nv ${APPTAINER_IMAGE}.sif
 
 all:
 	$(call banner, "start")

@@ -15,7 +15,7 @@ DOCKER_USER=-v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro  --user ${
 DOCKER_BUILD_FLAGS=--progress=plain ${CACHE}
 
 image:
-	cd images; make apptainer-image
+	cd images; make all
 
 help:
 	docker run ${DOCKER_FLAGS} ${DOCKER_USER} -v ${CODE}:${CODE} -v ${HOME}:${HOME} -w ${CODE} -it cloudmesh/smartsim bash -c "python3 train.py --help"
