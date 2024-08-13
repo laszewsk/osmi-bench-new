@@ -1,16 +1,16 @@
 {
   "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1": {
     "id": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1",
-    "directory": "/home/green/Desktop/osmi-bench-new/target/ubuntu-docker-cm/smartsim/project-train/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-train/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1",
     "experiment": "arch=small_lstm samples=100 epochs=5 batch_size=1 requests=128 directive=ubuntu repeat=1",
-    "script": "/home/green/Desktop/osmi-bench-new/target/ubuntu-docker-cm/smartsim/project-train/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1/bench-train.sh",
-    "config": "/home/green/Desktop/osmi-bench-new/target/ubuntu-docker-cm/smartsim/project-train/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1/config.yaml",
+    "script": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-train/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1/bench-train.sh",
+    "config": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-train/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1/config.yaml",
     "variables": {
       "name": "osmi-smartsim-cloudmesh",
       "ee": {
         "time": "0:30:00",
         "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1",
-        "uuid": "9ea08aff-f3ba-4906-b0ef-7872b579638c"
+        "uuid": "24b37e75-f1b0-42e8-8905-d99128c7d7c0"
       },
       "description": "SmartSim on Ubuntu with Docker",
       "submission": {
@@ -59,8 +59,8 @@
         "directory": "./project/model_{experiment.arch}_directive_{experiment.directive}_repeat_{experiment.repeat}"
       },
       "os": {
-        "USER": "green",
-        "HOME": "/home/green"
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
       },
       "slurm": {
         "sbatch": "#SBATCH --partition=ubuntu\n#SBATCH --account=ubuntu\n#SBATCH --gres=none"

@@ -15,8 +15,8 @@ DOCKER_USER=-v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro  --user ${
 DOCKER_BUILD_FLAGS=--progress=plain ${CACHE}
 
 image:
-	module load apptainer
-	module load cuda/12.4.1
+	#module load apptainer
+	#module load cuda/12.4.1
 	cd images; make apptainer-image
 
 help:
@@ -42,7 +42,7 @@ train-setup: train-clean
             --source_dir=. \
 		    --verbose \
 			--copycode="train.py,archs,Makefile,cloudmesh_pytorchinfo.py" 
-	cms ee generate submit --name=project-train --job_type=bash > project-jobs-train.sh
+	cms ee generate submit --name=project-train --job_type=slurm > project-jobs-train.sh
 	cms ee list project-train 
 
 train-run: 
