@@ -7,11 +7,21 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
+# Note: AMD accelerators also use the 'cuda' device, even though they use
+# the ROCm/HIP stack
+TORCH_DEVICES = {
+    'cpu': torch.device('cpu'),
+    'cuda': torch.device('cuda')
+}
+
 parser = argparse.ArgumentParser()
 archs = [s.split('.')[0] for s in os.listdir('archs') if s[0:1] != '_']
 parser.add_argument('arch', type=str, choices=archs, help='Type of neural network architectures')
+parser.add_argument('device', type=str, choices = TORCH_DEVICES.keys(), help='The target device for the trained model')
 parser.add_argument('-b', '--batch', type=int, default=1, help='batch size')
 args = parser.parse_args()
+
+device = TORCH_DEVICES[args.device]
 
 # Parameters
 samples = 100
@@ -35,8 +45,8 @@ X = np.random.rand(samples, *input_shape).astype(np.float32)
 Y = np.random.rand(samples, *output_shape).astype(np.float32)
 
 # Convert numpy arrays to PyTorch tensors
-X_tensor = torch.tensor(X)
-Y_tensor = torch.tensor(Y)
+X_tensor = torch.tensor(X).to(device)
+Y_tensor = torch.tensor(Y).to(device)
 
 # Create a DataLoader
 dataset = TensorDataset(X_tensor, Y_tensor)
@@ -44,7 +54,7 @@ dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 # Define model
 model_module = importlib.import_module('archs.' + args.arch)
-model = model_module.build_model(input_shape)
+model = model_module.build_model(input_shape).to(device)
 print(model)
 
 # Define loss and optimizer
