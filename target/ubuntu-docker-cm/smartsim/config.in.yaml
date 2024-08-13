@@ -22,13 +22,16 @@ experiment:
   #arch: "small_lstm,medium_cnn,large_tcnn"
   arch: "small_lstm"
   samples: 100
-  epochs: 5
+  epochs: 1
   batch_size: 1
   requests: 128
   #directive: "a100,a100-dgx,v100,rtx2080,rtx3090,a100-pod,a6000"
   #directive: "k80,p100"
   directive: "ubuntu"
   repeat: "1"
+  batch_requests: True
+  replicas: 1
+  num_gpus: 1
   #repeat: "1,2,3,4,5,6,7,8,9,10"
   #directive: "a100-dgx,a6000"
   #directive: "a100,v100,rtx2080,rtx3090,a100-pod"

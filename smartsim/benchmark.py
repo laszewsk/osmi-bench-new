@@ -62,7 +62,7 @@ torch.jit.save(torch_model, model_buffer)
 model_buffer.seek(0)  # Reset buffer position to the beginning
 
 # Make a SmartSim experiment and start the server
-exp = Experiment("Inference-Tutorial", launcher="local")
+exp = Experiment("Inference-Benchmark", launcher="local")
 # TODO: Update this to allow inference server to be scaled across multiple nodes
 db = exp.create_database(port=6780, interface="lo")
 exp.generate(db)
@@ -82,6 +82,7 @@ client.set_model(
     batch_size=batch_size
 )
 
+# Create the inferencer representative
 inferencer_run_settings = exp.create_run_settings(
     exe=sys.executable,
     exe_args=[
