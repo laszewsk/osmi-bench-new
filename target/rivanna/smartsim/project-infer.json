@@ -1,16 +1,16 @@
 {
-  "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1": {
-    "id": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1",
-    "directory": "/home/green/Desktop/osmi-bench-new/target/ubuntu-docker-cm/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1",
-    "experiment": "arch=small_lstm samples=100 epochs=5 batch_size=1 requests=128 directive=ubuntu repeat=1",
-    "script": "/home/green/Desktop/osmi-bench-new/target/ubuntu-docker-cm/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1/bench-infer.sh",
-    "config": "/home/green/Desktop/osmi-bench-new/target/ubuntu-docker-cm/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1/config.yaml",
+  "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1": {
+    "id": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1",
+    "experiment": "arch=small_lstm samples=100 epochs=5 batch_size=1 requests=128 directive=a100 repeat=1",
+    "script": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1/bench-infer.sh",
+    "config": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1/config.yaml",
     "variables": {
       "name": "osmi-smartsim-cloudmesh",
       "ee": {
         "time": "0:30:00",
-        "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1",
-        "uuid": "130f9bd5-f4ce-4240-bc3d-b6235a304181"
+        "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1",
+        "uuid": "da20ee3d-ea89-4c5e-8c71-ac866bbe0623"
       },
       "description": "SmartSim on Ubuntu with Docker",
       "submission": {
@@ -36,9 +36,9 @@
         "epochs": 5,
         "batch_size": 1,
         "requests": 128,
-        "directive": "ubuntu",
+        "directive": "a100",
         "repeat": "1",
-        "card_name": "ubuntu"
+        "card_name": "a100"
       },
       "time": {
         "small_lstm": 5,
@@ -47,10 +47,10 @@
       },
       "identifier": "{experiment.directive}_{experiment.arch}-{experiment.repeat}",
       "system": {
-        "host": "ubuntu",
+        "host": "rivanna",
         "python": "3.11.8",
         "num_cpus": 1,
-        "platform": "ubuntu",
+        "platform": "rivanna",
         "accelerators_per_node": 1,
         "constraint": "",
         "reservation": ""
@@ -59,15 +59,14 @@
         "directory": "./project/model_{experiment.arch}_directive_{experiment.directive}_repeat_{experiment.repeat}"
       },
       "os": {
-        "USER": "green",
-        "HOME": "/home/green"
+        "USER": "thf2bn",
+        "HOME": "/home/thf2bn"
       },
       "slurm": {
-        "sbatch": "#SBATCH --partition=ubuntu\n#SBATCH --account=ubuntu\n#SBATCH --gres=none"
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --partition=gpu\n#SBATCH --account=bii_dsc_community"
       }
     },
     "copycode": [
-      "startdb.py",
       "train.py",
       "benchmark.py",
       "archs",

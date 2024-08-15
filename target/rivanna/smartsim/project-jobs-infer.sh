@@ -1,1 +1,1 @@
-arch=small_lstm samples=100 epochs=5 batch_size=1 requests=128 directive=ubuntu repeat=1 cd /home/green/Desktop/osmi-bench-new/target/ubuntu-docker-cm/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_ubuntu_repeat_1 && bash bench-infer.sh
+arch=small_lstm samples=100 epochs=5 batch_size=1 requests=128 directive=a100 repeat=1 cd /sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1 && sbatch bench-infer.sh
