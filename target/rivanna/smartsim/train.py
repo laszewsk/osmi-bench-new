@@ -111,6 +111,7 @@ optimizer = torch.optim.Adam(model.parameters())
 
 StopWatch.stop("setup")
 
+
 StopWatch.start("train")
 # Train model
 model.train()

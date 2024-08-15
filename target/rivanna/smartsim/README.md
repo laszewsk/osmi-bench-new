@@ -17,6 +17,45 @@ git clone https://github.com/laszewsk/osmi-bench-new
 cd osmi-bench-new/target/ubuntu-docker-cm/smartsim
 ```
 
+## Rivanna
+
+``bash
+source /scratch/$USER/ENV3/bin/activate
+```
+
+The first time you have to install cloudmesh
+
+``bash
+pip install cloudmesh-ee
+pip install cloudmesh-gpu
+pip install cloudmesh-rivanna
+```
+
+Go to the target dir
+
+```bash
+cd /scratch/$USER/osmi-bench-new/target/rivanna
+```
+
+Activate the environment
+
+```bash
+source env.sh
+```
+
+
+Create the image
+
+```bash
+make image
+```
+
+Run the training benchmark
+
+```bash
+make train-setup
+make train-run
+```
 
 ## Ubuntu - docker
 

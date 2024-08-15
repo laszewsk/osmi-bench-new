@@ -28,6 +28,8 @@ PROGRESS "running" "pwd" 2
 
 pwd
 
+# source env.sh
+
 
 echo "============================================================"
 echo "PROJECT_ID: {identifier}"
