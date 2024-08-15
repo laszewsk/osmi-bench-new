@@ -28,8 +28,6 @@ PROGRESS "running" "pwd" 2
 
 pwd
 
-# source env.sh
-
 
 echo "============================================================"
 echo "PROJECT_ID: {identifier}"
@@ -39,5 +37,7 @@ PROGRESS "running" "training" 3
 PROGRESS "running" "train" 2
 
 apptainer run --nv  $CONTAINER bash -c "python3 train.py"
+
+PROGRESS "running" "finished" 2
 
 # make train
