@@ -2,10 +2,13 @@ import argparse
 import importlib
 import io
 import numpy as np
-import os
+import sys
 import time
 import torch
 
+from pathlib import Path
+
+from smartsim import Experiment
 from smartredis import Client
 from tqdm import tqdm
 
@@ -16,8 +19,12 @@ from pprint import pprint
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.console import Console
 
-StopWatch.start("init")
+# Get the full path to the inferencer application
+INFERENCER = Path(__file__).parent.resolve() / "inferencer.py"
+# If batching is requested, wait 10ms to aggregate inference requests
+DEFAULT_BATCH_TIMEOUT = 10
 
+StopWatch.start("init")
 
 config = FlatDict()
 config.load("config.yaml")
@@ -25,22 +32,26 @@ config.load("config.yaml")
 print(config)
 
 # check experiment parameters
+required_params = [
+    "experiment.arch",
+    "experiment.repeat", 
+    "experiment.samples", 
+    "experiment.epochs", 
+    "experiment.batch_size",
+    "experiment.requests",
+    "experiment.batch_requests",
+    "experiment.replicas",
+    "experiment.num_gpus",
+]
 
 terminate = False
-for key in ["experiment.arch",
-            "experiment.repeat", 
-            "experiment.samples", 
-            "experiment.epochs", 
-            "experiment.batch_size",
-            "experiment.requests"]:
+for key in required_params:
     if key not in config:
         Console.error(f"{key} not defined in config.yaml")
         terminate = True
 
 if terminate:
     sys.exit()
-
-
 
 # Parameters
 mode = "inference"
@@ -50,6 +61,9 @@ epochs = int(config["experiment.epochs"])
 batch = batch_size = int(config["experiment.batch_size"])    
 arch = config["experiment.arch"]
 num_requests = requests = int(config["experiment.requests"])
+batch_requests = config["experiment.batch_requests"] 
+replicas = config["experiment.replicas"]
+num_gpus = config["experiment.num_gpus"]
 
 # Compute synthetic data for X and Y
 if arch == "small_lstm":
@@ -105,40 +119,58 @@ model_buffer = io.BytesIO()
 torch.jit.save(torch_model, model_buffer)
 model_buffer.seek(0)  # Reset buffer position to the beginning
 
+# Make a SmartSim experiment and start the server
+exp = Experiment("Inference-Benchmark", launcher="local")
+
+# TODO: Update this to allow inference server to be scaled across
+# multiple nodes, to launch on 
+db = exp.create_database(port=6780, interface="lo")
+exp.generate(db)
+exp.start(db)
+
 # Get the database address and create a SmartRedis client
-client = Client(address="localhost:6780", cluster=False)
+client = Client(address=db.get_address()[0], cluster=False)
+# put the PyTorch CNN in the database in GPU memory
+batch_timeout = DEFAULT_BATCH_TIMEOUT if batch_requests else 0
+batch_size = batch*replicas if batch_requests else batch
+min_batch_size = batch_size if batch_requests else 0
+client.set_model_multigpu(
+    "cnn",
+    model_buffer.getvalue(),
+    "TORCH",
+    first_gpu=0,
+    num_gpus=num_gpus,
+    min_batch_timeout=batch_timeout,
+    min_batch_size=min_batch_size,
+    batch_size=batch_size
+)
+
+# Create the inferencer representative
+inferencer_run_settings = exp.create_run_settings(
+    exe=sys.executable,
+    exe_args=str(INFERENCER),
+)
+
+ensemble = exp.create_ensemble(
+    "inferencer",
+    run_settings=inferencer_run_settings,
+    replicas=replicas
+)
+ensemble.attach_generator_files(to_symlink="config.yaml")
+
+# Make sure that keys from each replica do not overlap
+for model in ensemble:
+    model.register_incoming_entity(model)
+
+exp.generate(ensemble)
 
 StopWatch.stop("setup")
 
-StopWatch.start("inference")    
-
-times = list()
-# 
-
-# set SR_LOG_LEVEL to switch off redis logging
-for _ in tqdm(range(num_requests)):
-    tik = time.perf_counter()
-    client.put_tensor("input", torch.rand(models[arch]['shape']).numpy())
-    # put the PyTorch CNN in the database in GPU memory
-    # BUG NEEDS GPU LIST
-    client.set_model("cnn", model_buffer.getvalue(), "TORCH", device="GPU:0")
-    #client.set_model("cnn", model_buffer.getvalue(), "TORCH", device="CPU")
-    # execute the model, supports a variable number of inputs and outputs
-    client.run_model("cnn", inputs=["input"], outputs=["output"])
-    # get the output
-    output = client.get_tensor("output")
-    #print(f"Prediction: {output}")
-    tok = time.perf_counter()
-    times.append(tok - tik)
-
-elapsed = sum(times)
-avg_inference_latency = elapsed/num_requests
-
-print(f"elapsed time: {elapsed:.1f}s | average inference latency: {avg_inference_latency:.3f}s | 99th percentile latency: {np.percentile(times, 99):.3f}s | ips: {1/avg_inference_latency:.1f}")
-StopWatch.stop("inference")
+exp.start(ensemble, block=True)
 
 
-tag_base = f"mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
+
+tag_base = f"prg=benchmark.py,mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
 
 tag = f"{tag_base},elapsed time={elapsed:.1f}s,average inference latency={avg_inference_latency:.3f}s,99th percentile latency={np.percentile(times, 99):.3f}s,ips={1/avg_inference_latency:.1f}"
 

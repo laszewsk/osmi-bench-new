@@ -1,16 +1,16 @@
 {
-  "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1": {
-    "id": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1",
-    "directory": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1",
-    "experiment": "arch=small_lstm samples=100 epochs=5 batch_size=1 requests=128 directive=a100 repeat=1",
-    "script": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1/bench-infer.sh",
-    "config": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1/config.yaml",
+  "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda": {
+    "id": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
+    "experiment": "arch=small_lstm samples=100 epochs=5 batch_size=1 requests=128 directive=a100 repeat=1 batch_requests=True replicas=1 num_gpus=1 device=cuda",
+    "script": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda/bench-infer.sh",
+    "config": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda/config.yaml",
     "variables": {
       "name": "osmi-smartsim-cloudmesh",
       "ee": {
         "time": "0:30:00",
-        "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1",
-        "uuid": "da20ee3d-ea89-4c5e-8c71-ac866bbe0623"
+        "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
+        "uuid": "8b8e45b6-3e49-45e8-b320-6886efd71143"
       },
       "description": "SmartSim on Ubuntu with Docker",
       "submission": {
@@ -38,6 +38,10 @@
         "requests": 128,
         "directive": "a100",
         "repeat": "1",
+        "batch_requests": true,
+        "replicas": 1,
+        "num_gpus": 1,
+        "device": "cuda",
         "card_name": "a100"
       },
       "time": {
@@ -68,6 +72,7 @@
     },
     "copycode": [
       "train.py",
+      "inferencer.py",
       "benchmark.py",
       "archs",
       "Makefile",

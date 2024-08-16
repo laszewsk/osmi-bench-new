@@ -67,7 +67,7 @@ infer-setup: infer-clean
 	        --output_dir=./project-infer \
             --source_dir=. \
 		    --verbose \
-			--copycode="train.py,benchmark.py,archs,Makefile,bench.sh,cloudmesh_pytorchinfo.py" 
+			--copycode="train.py,inferencer.py,benchmark.py,archs,Makefile,bench.sh,cloudmesh_pytorchinfo.py" 
 	cms ee generate submit --name=project-infer --job_type=slurm > project-jobs-infer.sh
 	cms ee list project-infer 
 

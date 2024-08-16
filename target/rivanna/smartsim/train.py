@@ -63,6 +63,8 @@ requests = int(config["experiment.requests"])
 batch_requests = bool(config["experiment.batch_requests"])
 replicas = int(config["experiment.replicas"])
 num_gpus = int(config["experiment.num_gpus"])
+# device_name = "cuda" if num_gpus > 0 else "cpu"
+device_name = config["experiment.device"]
 
 # Compute synthetic data for X and Y
 if arch == "small_lstm":
@@ -132,11 +134,8 @@ StopWatch.stop("train")
 # Save model
 StopWatch.start("save")
 
-device_name = "cuda"  # Default to GPU
-
-# device_name = "cpu"
-
 ## model = getattr(models, model_name)(pretrained=True)
+
 model.to(torch.device(device_name))
 model.eval()
 
@@ -148,7 +147,7 @@ scripted_model.save(f"{arch}_model.jit")
 
 StopWatch.stop("save")
 
-tag = f"prg=train.py,mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
+tag = f"device={device_name},mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
 
 StopWatch.benchmark(tag=tag, 
                     attributes=["timer", "time", "start", "tag", "msg"])

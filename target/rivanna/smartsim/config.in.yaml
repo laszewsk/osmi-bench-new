@@ -35,6 +35,11 @@ experiment:
   #directive: "a100,v100,rtx2080,rtx3090,a100-pod"
   #directive: "a6000"
   #repeat: "1"
+  batch_requests: True
+  replicas: 1
+  num_gpus: 1
+  # device: "cuda,cpu"
+  device: "cuda"
 
 time:
   small_lstm: 5
