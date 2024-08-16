@@ -1,0 +1,97 @@
+module load apptainer
+module load cuda/12.4.1
+
+# FROM smartsim:cuda-12
+
+## Install additional dependencies
+# RUN apt-get update 
+# RUN apt-get install -y \
+#    lsof \
+#    python3-pip \
+#    git-lfs
+
+
+## Install TensorFlow Serving
+## RUN pip install tensorflow-serving-api[and-cuda]
+
+## Install other required packages
+# RUN pip install grpcio numpy requests tqdm 
+#
+## Install Cloudmesh
+# RUN pip install cloudmesh-common cloudmesh-gpu cloudmesh-apptainer
+#
+## Set the entrypoint command
+# CMD ["python", "app.py"]
+
+# Bootstrap: docker
+#From: nvcr.io/nvidia/pytorch:24.05-py3
+
+# From: smartsim:cuda-12
+
+#%post
+#    apt-get update && apt-get install -y \
+#        lsof \
+#        python3-pip \
+#        git-lfs
+
+#    pip install grpcio numpy requests tqdm 
+#    pip install cloudmesh-common cloudmesh-gpu cloudmesh-apptainer
+
+#    # SMARTSIM
+#    pip install smartsim
+#    smart build --device gpu --onnx --dragon
+
+#%runscript
+#    exec python app.py
+
+Bootstrap: docker
+From: ubuntu:22.04
+
+# LABEL maintainer="Cray Labs"
+# LABEL org.opencontainers.image.source https://github.com/CrayLabs/SmartSim
+
+%environment
+    export TZ=US/Seattle
+    export CUDA_HOME="/usr/local/cuda/"
+    export PATH="${PATH}:${CUDA_HOME}/bin"
+    export DEBIAN_FRONTEND="noninteractive"
+
+# Make basic dependencies
+%post
+    apt-get update \
+    && apt-get install --no-install-recommends -y build-essential \
+    git gcc make git-lfs wget libopenmpi-dev openmpi-bin unzip \
+    python3-pip python3 python3-dev cmake wget
+
+    # Install common software
+
+    pip install grpcio numpy requests tqdm 
+    pip install cloudmesh-common cloudmesh-gpu cloudmesh-apptainer
+
+
+    # Install Cudatoolkit 12.5
+    
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb && \
+    dpkg -i cuda-keyring_1.1-1_all.deb && \
+    apt-get update -y && \
+    apt-get install -y cuda-toolkit-12-5
+
+    # Install cuDNN 8.9.7
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/libcudnn8_8.9.7.29-1+cuda12.2_amd64.deb && \
+    dpkg -i libcudnn8_8.9.7.29-1+cuda12.2_amd64.deb
+
+    # Install SmartSim and SmartRedis
+    pip install git+https://github.com/CrayLabs/SmartRedis.git && \
+    pip install git+https://github.com/CrayLabs/SmartSim.git@cuda-12-support
+
+
+    # Install machine-learning python packages consistent with RedisAI
+    # Note: pytorch gets installed in the smart build step
+    # This step will be deprecated in a future update
+    pip install tensorflow==2.15.0
+
+    # Build ML Backends
+    smart build --device=cuda121
+
+    # Correct permissions for RedisAI
+    find /usr/local/lib/python3.10/dist-packages/smartsim -name "*.so*" -exec chmod a+rx {} \;
