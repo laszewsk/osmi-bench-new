@@ -1,5 +1,6 @@
 """usage: python train.py [--config=config.yaml] -- It assumes that the config.yaml file is in the same directory as this script.
 """
+# train.py
 import sys
 # import argparse
 import importlib
@@ -59,6 +60,9 @@ epochs = int(config["experiment.epochs"])
 batch_size = int(config["experiment.batch_size"])    
 arch = config["experiment.arch"]
 requests = int(config["experiment.requests"])
+batch_requests = bool(config["experiment.batch_requests"])
+replicas = int(config["experiment.replicas"])
+num_gpus = int(config["experiment.num_gpus"])
 
 # Compute synthetic data for X and Y
 if arch == "small_lstm":
@@ -111,7 +115,6 @@ optimizer = torch.optim.Adam(model.parameters())
 
 StopWatch.stop("setup")
 
-
 StopWatch.start("train")
 # Train model
 model.train()
@@ -145,7 +148,7 @@ scripted_model.save(f"{arch}_model.jit")
 
 StopWatch.stop("save")
 
-tag = f"mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
+tag = f"prg=train.py,mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
 
 StopWatch.benchmark(tag=tag, 
                     attributes=["timer", "time", "start", "tag", "msg"])
