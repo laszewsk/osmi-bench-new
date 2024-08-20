@@ -1,0 +1,23 @@
+Bootstrap: docker
+#From: nvcr.io/nvidia/pytorch:24.05-py3
+
+#From: smartsim:cuda-12
+From: ashaohpe/smartsim:cuda-12
+
+%post
+    apt-get update && apt-get install -y \
+        lsof \
+        python3-pip \
+        git-lfs
+
+    pip install grpcio numpy requests tqdm 
+    pip install cloudmesh-common cloudmesh-gpu cloudmesh-apptainer
+
+#    # SMARTSIM
+#    pip install smartsim
+
+    # smart build --device gpu --onnx --dragon
+    smart build --device cuda121
+
+# %runscript
+#    exec python app.py
