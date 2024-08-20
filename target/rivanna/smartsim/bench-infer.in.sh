@@ -5,9 +5,9 @@
 #SBATCH --error=osmi-{identifier}-%u-%j.err
 {slurm.sbatch}
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
+#SBATCH --ntasks=4
 #SBATCH --mem=64GB
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=4
 #SBATCH --time={ee.time}
 
 WORKDIR=/scratch/$USER/osmi-bench-new/target/rivanna/smartsim
@@ -33,15 +33,18 @@ echo "============================================================"
 echo "PROJECT_ID: {identifier}"
 echo "REPEAT: {experiment.repeat}"
 
-PROGRESS "running" "training" 3
-PROGRESS "running" "train" 2
+#PROGRESS "running" "training" 3
+#PROGRESS "running" "train" 2
 
-apptainer run --nv  $CONTAINER bash -c "python3 train.py"
+#apptainer run --nv  $CONTAINER bash -c "python3 train.py"
 
-PROGRESS "running" "train finished" 2
+#PROGRESS "running" "train finished" 2
+
+PROGRESS "running" "inference" 5
 
 apptainer run --nv  $CONTAINER bash -c "/bin/sh bench.sh"
 
+PROGRESS "running" "inference finished" 99
 
 
 

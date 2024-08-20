@@ -24,7 +24,7 @@ INFERENCER = Path(__file__).parent.resolve() / "inferencer.py"
 # If batching is requested, wait 10ms to aggregate inference requests
 DEFAULT_BATCH_TIMEOUT = 10
 
-StopWatch.start("init")
+StopWatch.start("benchmark-init")
 
 config = FlatDict()
 config.load("config.yaml")
@@ -99,9 +99,9 @@ try:
 except:
     print ("This is not a cuda device")
     
-StopWatch.stop("init")
+StopWatch.stop("benchmark-init")
 
-StopWatch.start("setup")
+StopWatch.start("benchmark-setup")
 data = np.array(np.random.random(models[arch]['shape']), dtype=models[arch]['dtype'])
 
 # Define model
@@ -164,15 +164,21 @@ for model in ensemble:
 
 exp.generate(ensemble)
 
-StopWatch.stop("setup")
+StopWatch.stop("benchmark-setup")
+
+
+StopWatch.start("benchmark-run-ensemble")
 
 exp.start(ensemble, block=True)
 
+StopWatch.stop("benchmark-run-ensemble")
 
-
-tag_base = f"prg=benchmark.py,mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
-
-tag = f"{tag_base},elapsed time={elapsed:.1f}s,average inference latency={avg_inference_latency:.3f}s,99th percentile latency={np.percentile(times, 99):.3f}s,ips={1/avg_inference_latency:.1f}"
+tag = f"prg=benchmark.py,mode={mode}," \
+      f"repeat={repeat}," \
+      f"arch={arch}," \
+      f"samples={samples}," \
+      f"epochs={epochs}," \
+      f"batch_size={batch_size}"
 
 StopWatch.benchmark(tag=tag, 
                     attributes=["timer", "time", "start", "tag", "msg"])

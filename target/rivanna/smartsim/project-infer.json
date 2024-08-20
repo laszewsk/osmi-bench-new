@@ -10,7 +10,7 @@
       "ee": {
         "time": "0:30:00",
         "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
-        "uuid": "8b8e45b6-3e49-45e8-b320-6886efd71143"
+        "uuid": "bbb1cf53-4b88-44da-bdda-2849c05532a2"
       },
       "description": "SmartSim on Ubuntu with Docker",
       "submission": {
@@ -33,7 +33,7 @@
       "experiment": {
         "arch": "small_lstm",
         "samples": 100,
-        "epochs": 5,
+        "epochs": "5",
         "batch_size": 1,
         "requests": 128,
         "directive": "a100",
@@ -71,6 +71,7 @@
       }
     },
     "copycode": [
+      "small_lstm_model.jit",
       "train.py",
       "inferencer.py",
       "benchmark.py",

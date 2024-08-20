@@ -10,6 +10,8 @@ from cloudmesh.common.StopWatch import StopWatch
 from smartredis import Client
 from tqdm import tqdm
 
+StopWatch.start("inferencer-init")    
+
 config = FlatDict()
 config.load("config.yaml")
 
@@ -39,8 +41,10 @@ models = {
 client = Client(cluster=False)
 
 times = list()
+StopWatch.stop("inferencer-init")    
 
-StopWatch.start("inference")    
+
+StopWatch.start("inferencer-loop")    
 for _ in tqdm(range(num_requests)):
     tik = time.perf_counter()
     client.put_tensor("input", torch.rand(models[arch]['shape']).numpy())
@@ -55,13 +59,18 @@ for _ in tqdm(range(num_requests)):
 elapsed = sum(times)
 avg_inference_latency = elapsed/num_requests
 
-print(f"elapsed time: {elapsed:.1f}s | average inference latency: {avg_inference_latency:.3f}s | 99th percentile latency: {np.percentile(times, 99):.3f}s | ips: {1/avg_inference_latency:.1f}")
-StopWatch.stop("inference")
+StopWatch.stop("inferencer-loop")
 
+StopWatch.start("inferencer-finalize")
+
+print(f"elapsed time: {elapsed:.1f}s | average inference latency: {avg_inference_latency:.3f}s | 99th percentile latency: {np.percentile(times, 99):.3f}s | ips: {1/avg_inference_latency:.1f}")
 
 tag_base = f"prg=inferencer.py,mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
 
 tag = f"{tag_base},elapsed time={elapsed:.1f}s,average inference latency={avg_inference_latency:.3f}s,99th percentile latency={np.percentile(times, 99):.3f}s,ips={1/avg_inference_latency:.1f}"
+
+
+StopWatch.stop("inferencer-finalize")
 
 StopWatch.benchmark(tag=tag, 
                     attributes=["timer", "time", "start", "tag", "msg"])

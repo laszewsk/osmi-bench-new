@@ -22,7 +22,7 @@ experiment:
   #arch: "small_lstm,medium_cnn,large_tcnn"
   arch: "small_lstm"
   samples: 100
-  epochs: 5
+  epochs: "5"
   batch_size: 1
   requests: 128
   directive: "a100"

@@ -16,7 +16,7 @@ from pprint import pprint
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.console import Console
 import argparse
-
+from cloudmesh.common.util import banner
 
 # Parse command line arguments
 parser = argparse.ArgumentParser()
@@ -141,11 +141,19 @@ model.eval()
 
 example_input = torch.rand(1, *input_shape, device=device_name)
 scripted_model = torch.jit.trace(model, example_input)
-scripted_model.save(f"{arch}_model.jit")
+
+torch.jit.save(scripted_model, f"{arch}_model.jit")
+
+
+if os.path.isfile(f"{arch}_model.jit"):
+    Console.ok("JIT file exists")
+else:
+    Console.error("JIT file does not exist")
 
 
 
 StopWatch.stop("save")
+
 
 tag = f"device={device_name},mode={mode},repeat={repeat},arch={arch},samples={samples},epochs={epochs},batch_size={batch_size}"
 
@@ -154,3 +162,9 @@ StopWatch.benchmark(tag=tag,
 
 
 print (tag)
+
+banner("loading model")
+m = torch.jit.load(f"{arch}_model.jit")
+m.eval()
+
+banner("Model loded")
