@@ -12,13 +12,13 @@ class Model(nn.Module):
     def model_batch(cls, batch):
         return  {
             'inputs': batch,
-            'shape': (batch, self.input_shape[0], self.input_shape[1]),
-            'dtype': self.dtype
+            'shape': (batch, cls.input_shape[0], cls.input_shape[1]),
+            'dtype': cls.dtype
         }
             
 
     def __init__(self):
-        super(SmallLSTM, self).__init__()
+        super(Model, self).__init__()
         self.lstm_layers = nn.Sequential(
             nn.LSTM(self.input_shape[1], 256, batch_first=True, num_layers=4, dropout=0.2)
         )

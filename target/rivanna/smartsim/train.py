@@ -66,19 +66,20 @@ num_gpus = int(config["experiment.num_gpus"])
 device_name = config["experiment.device"]
 
 
-try:
-    print("A")
-    model_module = importlib.import_module(f'archs.{arch}.py')
+#try:
+print("A")
+model_module = importlib.import_module(f'archs.{arch}')
+Model = model_module.Model
 
-    print("B")
-    model_class = model_module.BuildModel(model_module.input_shape)
-    print ("C")
-except:
-    Console.error(f"Model {arch} not defined in the archs directory")
+print("B")
+# model_class = Model.model_batch(Model.input_shape)
+print ("C")
+#except:
+#    Console.error(f"Model {arch} not defined in the archs directory")
 
-input_shape  = model_class.input_shape
-output_shape = model_class.output_shape
-dtype = model_class.dtype
+input_shape  = Model.input_shape
+output_shape = Model.output_shape
+dtype = Model.dtype
 
 
 print_gpu_device_properties()
@@ -109,8 +110,9 @@ dataset = TensorDataset(X_tensor, Y_tensor)
 dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 # Define model
-model_module = importlib.import_module(f'archs.{arch}')
-model = model_module.build_model(input_shape)
+#model_module = importlib.import_module(f'archs.{arch}')
+#model = model_module.build_model(input_shape)
+model = Model()
 print(model)
 
 # Define loss and optimizer
