@@ -4,6 +4,7 @@
 import sys
 # import argparse
 import importlib
+import numpy as np
 import os
 import torch
 import torch.nn as nn
@@ -65,18 +66,18 @@ num_gpus = int(config["experiment.num_gpus"])
 # device_name = "cuda" if num_gpus > 0 else "cpu"
 device_name = config["experiment.device"]
 
-
-try:
-    model_module = importlib.import_module(f'archs.{arch}.py')
-
-    model_class = model_module.BuildModel(model_module.input_shape)
-except:
-    Console.error(f"Model {arch} not defined in the archs directory")
-
-input_shape  = model_class.input_shape
-output_shape = model_class.output_shape
-dtype = model_class.dtype
-
+# Compute synthetic data for X and Y
+if arch == "small_lstm":
+    input_shape = (8, 48)  # Sequence length, feature size
+    output_shape = (24,)  # Total output size
+elif arch == "medium_cnn":
+    input_shape = (9, 101, 82)  # Channels, Height, Width
+    output_shape = (101*82,)  # Flattened output size
+elif arch == "large_tcnn":
+    input_shape = (9, 101, 82)  # Channels, Depth, Height, Width for 3D CNNs, but let's simplify
+    output_shape = (101*82,)  # Adjust based on actual model architecture
+else:
+    raise ValueError("Model not supported. Need to specify input and output shapes")
 
 print_gpu_device_properties()
 try:
@@ -94,8 +95,8 @@ StopWatch.stop("init")
 
 StopWatch.start("setup")
 
-X = torch.rand(samples, *input_shape, dtype=dtype)
-Y = torch.rand(samples, *output_shape, dtype=dtype)
+X = np.random.rand(samples, *input_shape).astype(np.float32)
+Y = np.random.rand(samples, *output_shape).astype(np.float32)
 
 # Convert numpy arrays to PyTorch tensors
 X_tensor = torch.tensor(X)

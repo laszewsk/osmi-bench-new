@@ -2,25 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class Model(nn.Module):
-
-    input_shape = (9, 101, 82)  # Channels, Height, Width
-    output_shape = (101*82,)  # Flattened output size
-    dtype = torch.float32
-    name = "medium_cnn"
-
-
-
-    @classmethod
-    def model_batch(cls, batch):
-        return  {
-            'inputs': batch,
-            'shape': (batch, self.inpupt_shape[0], self.input_shape[1], self.input_shape[2]),
-            'dtype': self.dtype
-        }
-            
-
-
+class MediumCNN(nn.Module):
     def __init__(self, input_shape):
         super(MediumCNN, self).__init__()
         self.input_shape = input_shape
@@ -86,4 +68,7 @@ class Model(nn.Module):
         x = self.tconv10(x)  # Linear activation for the output layer
 
         return x
+
+def build_model(input_shape):
+    return MediumCNN(input_shape)
 

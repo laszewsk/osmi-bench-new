@@ -1,14 +1,14 @@
+import argparse
 import numpy as np
+import os
 import time
 import torch
 
 from cloudmesh.common.FlatDict import FlatDict
 from cloudmesh.common.StopWatch import StopWatch
-from cloudmesh.common.console import Console    
 
 from smartredis import Client
 from tqdm import tqdm
-import importlib
 
 StopWatch.start("inferencer-init")    
 
@@ -27,22 +27,15 @@ num_requests = requests = int(config["experiment.requests"])
 batch_requests = config["experiment.batch_requests"] 
 replicas = config["experiment.replicas"]
 
+isd = lambda a, b, c : {'inputs': a, 'shape': b, 'dtype': c}
 
-
-
-try:
-    model_module = importlib.import_module(f'archs.{arch}')
-
-    model_class = model_module.BuildModel(model_module.input_shape)
-except:
-    Console.error(f"Model {arch} not defined in the archs directory")
-
-input_shape  = model_class.input_shape
-output_shape = model_class.output_shape
-dtype = model_class.dtype
-
-model = model_class.model_batch(batch)
-
+models = {
+          'small_lstm': isd('inputs', (batch, 8, 48), np.float32),
+          'medium_cnn': isd('inputs', (batch, 101, 82, 9), np.float32),
+          'large_tcnn': isd('inputs', (batch, 3, 101, 82, 9), np.float32),
+          'swmodel': isd('dense_input', (batch, 3778), np.float32),
+          'lwmodel': isd('dense_input', (batch, 1426), np.float32),
+         }
 
 # Create the SmartSim client
 client = Client(cluster=False)
@@ -54,7 +47,7 @@ StopWatch.stop("inferencer-init")
 StopWatch.start("inferencer-loop")    
 for _ in tqdm(range(num_requests)):
     tik = time.perf_counter()
-    client.put_tensor("input", torch.rand(model['shape']).numpy())
+    client.put_tensor("input", torch.rand(models[arch]['shape']).numpy())
     # execute the model, supports a variable number of inputs and outputs
     client.run_model("cnn", inputs=["input"], outputs=["output"])
     # get the output

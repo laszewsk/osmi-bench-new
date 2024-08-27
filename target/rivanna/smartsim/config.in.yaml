@@ -25,7 +25,7 @@ experiment:
   epochs: "5"
   batch_size: 1
   requests: 128
-  directive: "a100"
+  directive: "a100-dgx"
   #directive: "a100,a100-dgx,v100,rtx2080,rtx3090,a100-pod,a6000"
   #directive: "k80,p100"
   #directive: "ubuntu"

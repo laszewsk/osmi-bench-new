@@ -1,13 +1,16 @@
+import argparse
 import importlib
 import io
 import numpy as np
 import sys
+import time
 import torch
 
 from pathlib import Path
 
 from smartsim import Experiment
 from smartredis import Client
+from tqdm import tqdm
 
 from cloudmesh.common.StopWatch import StopWatch
 from cloudmesh_pytorchinfo import print_gpu_device_properties
@@ -62,22 +65,29 @@ batch_requests = config["experiment.batch_requests"]
 replicas = config["experiment.replicas"]
 num_gpus = config["experiment.num_gpus"]
 
+# Compute synthetic data for X and Y
+if arch == "small_lstm":
+    input_shape = (8, 48)  # Sequence length, feature size
+    output_shape = (24,)  # Total output size
+elif arch == "medium_cnn":
+    input_shape = (9, 101, 82)  # Channels, Height, Width
+    output_shape = (101*82,)  # Flattened output size
+elif arch == "large_tcnn":
+    input_shape = (9, 101, 82)  # Channels, Depth, Height, Width for 3D CNNs, but let's simplify
+    output_shape = (101*82,)  # Adjust based on actual model architecture
+else:
+    raise ValueError("Model not supported. Need to specify input and output shapes")
 
 
-try:
-    model_module = importlib.import_module(f'archs.{arch}')
+isd = lambda a, b, c : {'inputs': a, 'shape': b, 'dtype': c}
 
-    model_class = model_module.BuildModel(model_module.input_shape)
-except:
-    Console.error(f"Model {arch} not defined in the archs directory")
-
-input_shape  = model_class.input_shape
-output_shape = model_class.output_shape
-dtype = model_class.dtype
-
-model = model_class.model_batch(batch)
-
-
+models = {
+          'small_lstm': isd('inputs', (batch, 8, 48), np.float32),
+          'medium_cnn': isd('inputs', (batch, 101, 82, 9), np.float32),
+          'large_tcnn': isd('inputs', (batch, 3, 101, 82, 9), np.float32),
+          'swmodel': isd('dense_input', (batch, 3778), np.float32),
+          'lwmodel': isd('dense_input', (batch, 1426), np.float32),
+         }
 print_gpu_device_properties()
 try:
     gpu = Gpu()
@@ -92,13 +102,11 @@ except:
 StopWatch.stop("benchmark-init")
 
 StopWatch.start("benchmark-setup")
-# smartredis requires numpy arrays
-data = np.array(torch.rand(model.model_batch['shape']), 
-                dtype=dtype)
-
+data = np.array(np.random.random(models[arch]['shape']), dtype=models[arch]['dtype'])
 
 # Define model
-torch_model = model_class
+model_module = importlib.import_module('archs.' + arch)
+torch_model = model_module.build_model(input_shape)
 print(torch_model)
 
 # Load the TorchScript model

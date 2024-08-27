@@ -2,22 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class Model(nn.Module):
-
-    input_shape = (9, 101, 82)  # Channels, Depth, Height, Width for 3D CNNs, but let's simplify
-    output_shape = (101*82,)  # Adjust based on actual model architecture
-    dtype = torch.float32
-    name = "large_tcnn"
-
-    @classmethod
-    def model_batch(cls, batch):
-        return  {
-            'inputs': batch,
-            'shape': (batch, self.inpupt_shape[0], self.input_shape[1], self.input_shape[2]),
-            'dtype': self.dtype
-        }
-            
-
+class TimeDistributed(nn.Module):
     def __init__(self, module, batch_first=True):
         super(TimeDistributed, self).__init__()
         self.module = module
@@ -70,3 +55,7 @@ class LargeTCNN(nn.Module):
         # Implement the forward pass matching the architecture described in TensorFlow code.
         # This includes the encoder, TCM, and decoder parts.
         return x
+
+def build_model(input_shape):
+    model = LargeTCNN(input_shape)
+    return model
