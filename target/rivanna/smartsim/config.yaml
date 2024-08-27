@@ -1,9 +1,59 @@
-name: "smartsim"
-description: "SmartSim on Ubuntu with Docker" 
-
+name: osmi-smartsim-cloudmesh
+ee:
+  time: 0:30:00
+  identifier: arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100-dgx_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda
+  uuid: eff4bc22-588b-4c02-a719-d7a9ce9ec0ed
+description: SmartSim on Ubuntu with Docker
+submission:
+  benchmark:
+    name: null
+  name:
+    name: null
+  submitter: Gregor von Laszewski
+  email: laszewski@gmail.com
+  org: University of Virginia
+  division: open
+  version: 1.0
+  github_commit_version: TBD
+  status: completed
+  platform: rivanna
+  accelerators_per_node: 1
 experiment:
-  arch: "small_lstm"
+  arch: small_lstm
   samples: 100
-  epochs: 5
+  epochs: '5'
   batch_size: 1
   requests: 128
+  directive: a100-dgx
+  repeat: '1'
+  batch_requests: true
+  replicas: 1
+  num_gpus: 1
+  device: cuda
+  card_name: a100
+time:
+  small_lstm: 5
+  medium_cnn: 30
+  large_tcnn: 60
+identifier: 'a100-dgx_small_lstm-1'
+system:
+  host: rivanna
+  python: 3.11.8
+  num_cpus: 1
+  platform: rivanna
+  accelerators_per_node: 1
+  constraint: ''
+  reservation: ''
+output:
+  directory: ./project/model_small_lstm_directive_a100-dgx_repeat_1
+os:
+  USER: thf2bn
+  HOME: /home/thf2bn
+slurm:
+  sbatch: '#SBATCH --gres=gpu:a100:1
+
+    #SBATCH --reservation=bi_fox_dgx
+
+    #SBATCH --partition=bii-gpu
+
+    #SBATCH --account=bii_dsc_community'

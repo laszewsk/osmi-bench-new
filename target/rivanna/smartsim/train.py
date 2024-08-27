@@ -67,9 +67,12 @@ device_name = config["experiment.device"]
 
 
 try:
+    print("A")
     model_module = importlib.import_module(f'archs.{arch}.py')
 
+    print("B")
     model_class = model_module.BuildModel(model_module.input_shape)
+    print ("C")
 except:
     Console.error(f"Model {arch} not defined in the archs directory")
 
