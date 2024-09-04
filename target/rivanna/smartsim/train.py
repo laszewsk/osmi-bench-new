@@ -17,6 +17,8 @@ from cloudmesh.common.console import Console
 import argparse
 from cloudmesh.common.util import banner
 
+
+
 # Parse command line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--config", default="config.yaml", help="Path to config file")
@@ -46,6 +48,15 @@ for key in ["experiment.arch",
     if key not in config:
         Console.error(f"{key} not defined in config.yaml")
         terminate = True
+
+PROFILE = bool(config["system.profile"])
+if PROFILE:
+    import torch
+    import torchvision.models as models
+    from torch.profiler import profile, record_function, ProfilerActivity
+
+    total_flops = 0
+
 
 if terminate:
     sys.exit()
@@ -122,18 +133,68 @@ optimizer = torch.optim.Adam(model.parameters())
 StopWatch.stop("setup")
 
 StopWatch.start("train")
+
+def execution():
+    pass
+
+total_flops = 0
+
 # Train model
-model.train()
-for epoch in range(epochs):
-    for batch_idx, (data, targets) in enumerate(dataloader):
-        optimizer.zero_grad()
-        output = model(data)
-        loss = criterion(output, targets)
-        loss.backward()
-        optimizer.step()
-    print(f'Epoch {epoch+1}, Loss: {loss.item()}')
+
+
+def execution(data,targets,dataloader):
+    optimizer.zero_grad()
+    output = model(data)
+    loss = criterion(output, targets)
+    loss.backward()
+    optimizer.step()
+
+if not  PROFILE:
+    for epoch in range(epochs):
+        model.train()
+        for batch_idx, (data, targets) in enumerate(dataloader):
+            optimizer.zero_grad()
+            output = model(data)
+            loss = criterion(output, targets)
+            loss.backward()
+            optimizer.step()
+        print(f'Epoch {epoch+1}, Loss: {loss.item()}')
+
+else:
+
+    for epoch in range(epochs):
+        model.train()
+        for batch_idx, (data, targets) in enumerate(dataloader):
+            with profile(activities=[
+                    ProfilerActivity.CUDA,
+                    ProfilerActivity.CPU,
+                    ], 
+                    record_shapes=True, 
+                    with_flops=True) as prof:
+
+                optimizer.zero_grad()
+                output = model(data)
+                loss = criterion(output, targets)
+                loss.backward()
+                optimizer.step()
+            events = prof.events()
+            flops = sum([int(evt.flops) for evt in events]) 
+            print(f"FLOPS: {flops}")
+            total_flops += flops
+
+        print(f'Epoch {epoch+1}, Loss: {loss.item()}')
+
+
+
+   
+
+    print("Total FLOPS: ", total_flops)
+    print("Epochs: ", epochs)   
+
 StopWatch.stop("train")
 
+#if PROFILE:
+#    print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=10))
 
 # Save model
 StopWatch.start("save")

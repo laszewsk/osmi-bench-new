@@ -57,7 +57,7 @@ train-setup: train-clean
 	        --output_dir=./project-train \
             --source_dir=. \
 		    --verbose \
-			--copycode="train.py,archs,Makefile,cloudmesh_pytorchinfo.py" 
+			--copycode="train.py,archs,Makefile,cloudmesh_profiler.py,cloudmesh_pytorchinfo.py" 
 	cms ee generate submit --name=project-train --job_type=slurm > project-jobs-train.sh
 	cms ee list project-train 
 

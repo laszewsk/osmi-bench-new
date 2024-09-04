@@ -10,7 +10,7 @@
       "ee": {
         "time": "0:30:00",
         "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100-dgx_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
-        "uuid": "3fbbdad9-5ab3-4895-ba2a-8d004a63f1f1"
+        "uuid": "08ef5065-22c3-48ca-93f6-e20a3771f273"
       },
       "description": "SmartSim on Ubuntu with Docker",
       "submission": {
@@ -57,7 +57,8 @@
         "platform": "rivanna",
         "accelerators_per_node": 1,
         "constraint": "",
-        "reservation": ""
+        "reservation": "",
+        "profile": true
       },
       "output": {
         "directory": "./project/model_{experiment.arch}_directive_{experiment.directive}_repeat_{experiment.repeat}"
@@ -74,6 +75,7 @@
       "train.py",
       "archs",
       "Makefile",
+      "cloudmesh_profiler.py",
       "cloudmesh_pytorchinfo.py"
     ]
   }
