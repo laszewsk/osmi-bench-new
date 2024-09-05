@@ -23,6 +23,9 @@ class Profiler:
     def stop(self):
         self.prof.stop()
 
+    def step(self):
+        self.prof.step()    
+
     def benchmark(self, row_limit=100):
         events = self.prof.events()
         self.flops = sum([int(evt.flops) for evt in events]) 
