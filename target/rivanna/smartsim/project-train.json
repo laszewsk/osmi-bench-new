@@ -10,7 +10,7 @@
       "ee": {
         "time": "0:30:00",
         "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100-dgx_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
-        "uuid": "08ef5065-22c3-48ca-93f6-e20a3771f273"
+        "uuid": "55721b95-eef0-4deb-be96-93a605cf3ac4"
       },
       "description": "SmartSim on Ubuntu with Docker",
       "submission": {

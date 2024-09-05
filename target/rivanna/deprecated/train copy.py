@@ -51,8 +51,22 @@ for key in ["experiment.arch",
 
 PROFILE = bool(config["system.profile"])
 if PROFILE:
-   from cloudmesh_profiler import Profiler
-   profiler = Profiler()
+    import torch
+    import torchvision.models as models
+    from torch.profiler import profile, record_function, ProfilerActivity
+
+    total_flops = 0
+
+    profiler = profile(activities=[
+                    ProfilerActivity.CUDA,
+                    ProfilerActivity.CPU,
+                    ], 
+                    record_shapes=True, 
+                    profile_memory=True,
+                    with_flops=True)
+    
+    #                 experimental_config=torch._C._profiler._ExperimentalConfig(verbose=True))
+
 
 
 if terminate:
@@ -131,49 +145,151 @@ StopWatch.stop("setup")
 
 StopWatch.start("train")
 
+def execution():
+    pass
 
 total_flops = 0
 
 # Train model
 
 
-if PROFILE:
+def execution(data,targets,dataloader):
+    optimizer.zero_grad()
+    output = model(data)
+    loss = criterion(output, targets)
+    loss.backward()
+    optimizer.step()
 
-    # prof = profile(activities=[
-    #         ProfilerActivity.CUDA,
-    #         ProfilerActivity.CPU,
-    #         ], 
-    #         record_shapes=True, 
-    #         with_flops=True)
-
-    profiler.start()
-
-for epoch in range(epochs):
-    model.train()
-    for batch_idx, (data, targets) in enumerate(dataloader):
-
+if not  PROFILE:
+    for epoch in range(epochs):
+        model.train()
+        for batch_idx, (data, targets) in enumerate(dataloader):
             optimizer.zero_grad()
             output = model(data)
             loss = criterion(output, targets)
             loss.backward()
             optimizer.step()
+        print(f'Epoch {epoch+1}, Loss: {loss.item()}')
 
-    print(f'Epoch {epoch+1}, Loss: {loss.item()}')
 
-if PROFILE:
-    profiler.stop()
+else:
 
-    profiler.benchmark(row_limit=100)
+    # with profile(activities=[
+    #         ProfilerActivity.CUDA,
+    #         ProfilerActivity.CPU,
+    #         ], 
+    #         record_shapes=True, 
+    #         with_flops=True) as prof:
 
+    #     for epoch in range(epochs):
+    #         model.train()
+    #         for batch_idx, (data, targets) in enumerate(dataloader):
+
+    #                 optimizer.zero_grad()
+    #                 output = model(data)
+    #                 loss = criterion(output, targets)
+    #                 loss.backward()
+    #                 optimizer.step()
+
+    #         print(f'Epoch {epoch+1}, Loss: {loss.item()}')
+
+        
     # events = prof.events()
     # flops = sum([int(evt.flops) for evt in events]) 
     # print(f"FLOPS: {flops}")
     # total_flops += flops
 
     # print(prof.key_averages(group_by_stack_n=5).table(sort_by="self_cuda_time_total", row_limit=100))
-    # print("Total FLOPS: ", total_flops)
+       
+    
 
-print("Epochs: ", epochs)   
+    # print("Total FLOPS: ", total_flops)
+    # print("Epochs: ", epochs)   
+
+
+    prof = profile(activities=[
+            ProfilerActivity.CUDA,
+            ProfilerActivity.CPU,
+            ], 
+            record_shapes=True, 
+            with_flops=True)
+
+    prof.start()
+
+    for epoch in range(epochs):
+        model.train()
+        for batch_idx, (data, targets) in enumerate(dataloader):
+
+                optimizer.zero_grad()
+                output = model(data)
+                loss = criterion(output, targets)
+                loss.backward()
+                optimizer.step()
+
+        print(f'Epoch {epoch+1}, Loss: {loss.item()}')
+
+    prof.stop()
+        
+    events = prof.events()
+    flops = sum([int(evt.flops) for evt in events]) 
+    print(f"FLOPS: {flops}")
+    total_flops += flops
+
+    print(prof.key_averages(group_by_stack_n=5).table(sort_by="self_cuda_time_total", row_limit=100))
+       
+    
+
+    print("Total FLOPS: ", total_flops)
+    print("Epochs: ", epochs)   
+
+
+# else:
+
+#     for epoch in range(epochs):
+#         model.train()
+#         for batch_idx, (data, targets) in enumerate(dataloader):
+#             with profile(activities=[
+#                     ProfilerActivity.CUDA,
+#                     ProfilerActivity.CPU,
+#                     ], 
+#                     record_shapes=True, 
+#                     with_flops=True) as prof:
+
+#                 optimizer.zero_grad()
+#                 output = model(data)
+#                 loss = criterion(output, targets)
+#                 loss.backward()
+#                 optimizer.step()
+#             events = prof.events()
+#             flops = sum([int(evt.flops) for evt in events]) 
+#             print(f"FLOPS: {flops}")
+#             total_flops += flops
+
+# else:
+    
+#     for epoch in range(epochs):
+#         model.train()
+#         for batch_idx, (data, targets) in enumerate(dataloader):
+#             profiler.start()
+
+#             optimizer.zero_grad()
+#             output = model(data)
+#             loss = criterion(output, targets)
+#             loss.backward()
+#             optimizer.step()
+            
+#             profiler.stop()
+
+#             events = profiler.events()
+#             flops = sum([int(evt.flops) for evt in events]) 
+#             print(f"FLOPS: {flops}")
+#             total_flops += flops
+
+
+    
+
+
+   
  
 StopWatch.stop("train")
 
