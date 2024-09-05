@@ -139,13 +139,6 @@ total_flops = 0
 
 if PROFILE:
 
-    # prof = profile(activities=[
-    #         ProfilerActivity.CUDA,
-    #         ProfilerActivity.CPU,
-    #         ], 
-    #         record_shapes=True, 
-    #         with_flops=True)
-
     profiler.start()
 
 for epoch in range(epochs):
@@ -162,23 +155,13 @@ for epoch in range(epochs):
 
 if PROFILE:
     profiler.stop()
-
     profiler.benchmark(row_limit=100)
 
-    # events = prof.events()
-    # flops = sum([int(evt.flops) for evt in events]) 
-    # print(f"FLOPS: {flops}")
-    # total_flops += flops
-
-    # print(prof.key_averages(group_by_stack_n=5).table(sort_by="self_cuda_time_total", row_limit=100))
-    # print("Total FLOPS: ", total_flops)
 
 print("Epochs: ", epochs)   
  
 StopWatch.stop("train")
 
-#if PROFILE:
-#    print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=10))
 
 # Save model
 StopWatch.start("save")
