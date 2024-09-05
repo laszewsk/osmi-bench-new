@@ -36,6 +36,8 @@ echo "REPEAT: {experiment.repeat}"
 PROGRESS "running" "training" 3
 PROGRESS "running" "train" 2
 
+
+# export APPTAINERENV_CUDA_VISIBLE_DEVICES=0 
 apptainer run --nv  $CONTAINER bash -c "python3 train.py"
 
 PROGRESS "running" "finished" 2

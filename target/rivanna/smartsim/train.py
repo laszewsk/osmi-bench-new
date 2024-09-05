@@ -75,15 +75,8 @@ device_name = config["experiment.device"]
 
 
 #try:
-print("A")
 model_module = importlib.import_module(f'archs.{arch}')
 Model = model_module.Model
-
-print("B")
-# model_class = Model.model_batch(Model.input_shape)
-print ("C")
-#except:
-#    Console.error(f"Model {arch} not defined in the archs directory")
 
 input_shape  = Model.input_shape
 output_shape = Model.output_shape
