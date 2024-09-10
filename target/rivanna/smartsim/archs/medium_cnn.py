@@ -23,7 +23,13 @@ class Model(nn.Module):
 
     def __init__(self, input_shape):
         super(MediumCNN, self).__init__()
-        self.input_shape = input_shape
+
+        self.input_shape = (9, 101, 82)  # Channels, Height, Width
+        self.output_shape = (101*82,)  # Flattened output size
+        self.dtype = torch.float32
+        self.name = "medium_cnn"
+
+
 
         self.conv1 = nn.Conv2d(in_channels=input_shape[0], out_channels=32, kernel_size=3, padding="same")
         #self.conv2 = nn.Conv2d(32, 64, 3, padding="same")

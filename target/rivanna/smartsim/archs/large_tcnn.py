@@ -20,6 +20,12 @@ class Model(nn.Module):
 
     def __init__(self, module, batch_first=True):
         super(TimeDistributed, self).__init__()
+
+        self.input_shape = (9, 101, 82)  # Channels, Depth, Height, Width for 3D CNNs, but let's simplify
+        self.output_shape = (101*82,)  # Adjust based on actual model architecture
+        self.dtype = torch.float32
+        self.name = "large_tcnn"
+        
         self.module = module
         self.batch_first = batch_first
 

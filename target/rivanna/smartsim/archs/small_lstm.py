@@ -9,8 +9,19 @@ class Model(nn.Module):
     name = "small_lstm"
 
     def __init__(self):
+        """
+        Initializes the Model class.
+
+        Attributes:
+        - input_shape (tuple): The shape of the input data (sequence length, feature size).
+        - output_shape (tuple): The shape of the output data.
+        - dtype (torch.dtype): The data type of the tensors.
+        - name (str): The name of the model.
+        - lstm_layers (nn.Sequential): The sequential layers for the LSTM model.
+        - fc_layers (nn.Sequential): The sequential layers for the fully connected model.
+        """
         super(Model, self).__init__()
-        
+
         self.input_shape = (8, 48)  # Sequence length, feature size
         self.output_shape = (24,)  # Total output size
         self.dtype = torch.float32
@@ -28,6 +39,18 @@ class Model(nn.Module):
         )
 
     def model_batch(self, batch):
+        """
+        Creates a dictionary representing the batch of inputs for the model.
+
+        Parameters:
+        - batch: The input batch.
+
+        Returns:
+        - A dictionary with the following keys:
+            - 'inputs': The input batch.
+            - 'shape': The shape of the input batch.
+            - 'dtype': The data type of the input batch.
+        """
         return  {
             'inputs': batch,
             'shape': (batch, self.input_shape[0], self.input_shape[1]),
@@ -36,6 +59,15 @@ class Model(nn.Module):
 
 
     def forward(self, x):
+        """
+        Forward pass of the small_lstm model.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, sequence_length, input_size).
+
+        Returns:
+            torch.Tensor: Output tensor of shape (batch_size, output_size).
+        """
         x, _ = self.lstm_layers(x)
         x = x[:, -1, :]  # Get the last time step
         x = self.fc_layers(x)
