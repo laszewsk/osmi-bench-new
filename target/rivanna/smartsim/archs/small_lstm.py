@@ -8,17 +8,14 @@ class Model(nn.Module):
     dtype = torch.float32
     name = "small_lstm"
 
-    @classmethod
-    def model_batch(cls, batch):
-        return  {
-            'inputs': batch,
-            'shape': (batch, cls.input_shape[0], cls.input_shape[1]),
-            'dtype': cls.dtype
-        }
-            
-
     def __init__(self):
         super(Model, self).__init__()
+        
+        self.input_shape = (8, 48)  # Sequence length, feature size
+        self.output_shape = (24,)  # Total output size
+        self.dtype = torch.float32
+        self.name = "small_lstm"
+
         self.lstm_layers = nn.Sequential(
             nn.LSTM(self.input_shape[1], 256, batch_first=True, num_layers=4, dropout=0.2)
         )
@@ -30,8 +27,17 @@ class Model(nn.Module):
             nn.Linear(128, 24)
         )
 
+    def model_batch(self, batch):
+        return  {
+            'inputs': batch,
+            'shape': (batch, self.input_shape[0], self.input_shape[1]),
+            'dtype': self.dtype
+        }
+
+
     def forward(self, x):
         x, _ = self.lstm_layers(x)
         x = x[:, -1, :]  # Get the last time step
         x = self.fc_layers(x)
         return x
+    

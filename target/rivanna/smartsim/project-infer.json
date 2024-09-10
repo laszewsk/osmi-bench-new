@@ -1,16 +1,16 @@
 {
-  "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda": {
-    "id": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
-    "directory": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
-    "experiment": "arch=small_lstm samples=100 epochs=5 batch_size=1 requests=128 directive=a100 repeat=1 batch_requests=True replicas=1 num_gpus=1 device=cuda",
-    "script": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda/bench-infer.sh",
-    "config": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda/config.yaml",
+  "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100-dgx_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda": {
+    "id": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100-dgx_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
+    "directory": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100-dgx_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
+    "experiment": "arch=small_lstm samples=100 epochs=5 batch_size=1 requests=128 directive=a100-dgx repeat=1 batch_requests=True replicas=1 num_gpus=1 device=cuda",
+    "script": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100-dgx_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda/bench-infer.sh",
+    "config": "/sfs/weka/scratch/thf2bn/osmi-bench-new/target/rivanna/smartsim/project-infer/arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100-dgx_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda/config.yaml",
     "variables": {
       "name": "osmi-smartsim-cloudmesh",
       "ee": {
         "time": "0:30:00",
-        "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
-        "uuid": "bbb1cf53-4b88-44da-bdda-2849c05532a2"
+        "identifier": "arch_small_lstm_samples_100_epochs_5_batch_size_1_requests_128_directive_a100-dgx_repeat_1_batch_requests_True_replicas_1_num_gpus_1_device_cuda",
+        "uuid": "b5cc85ce-0499-47e2-83c7-b772f2fe916a"
       },
       "description": "SmartSim on Ubuntu with Docker",
       "submission": {
@@ -36,7 +36,7 @@
         "epochs": "5",
         "batch_size": 1,
         "requests": 128,
-        "directive": "a100",
+        "directive": "a100-dgx",
         "repeat": "1",
         "batch_requests": true,
         "replicas": 1,
@@ -57,7 +57,8 @@
         "platform": "rivanna",
         "accelerators_per_node": 1,
         "constraint": "",
-        "reservation": ""
+        "reservation": "",
+        "profile": false
       },
       "output": {
         "directory": "./project/model_{experiment.arch}_directive_{experiment.directive}_repeat_{experiment.repeat}"
@@ -67,7 +68,7 @@
         "HOME": "/home/thf2bn"
       },
       "slurm": {
-        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --partition=gpu\n#SBATCH --account=bii_dsc_community"
+        "sbatch": "#SBATCH --gres=gpu:a100:1\n#SBATCH --reservation=bi_fox_dgx\n#SBATCH --partition=bii-gpu\n#SBATCH --account=bii_dsc_community"
       }
     },
     "copycode": [
@@ -75,6 +76,7 @@
       "train.py",
       "inferencer.py",
       "benchmark.py",
+      "cloudmesh_profiler.py",
       "archs",
       "Makefile",
       "bench.sh",

@@ -50,32 +50,32 @@ for key in required_params:
 if terminate:
     sys.exit()
 
+
+
 # Parameters
-mode = "inference"
+mode = "train"
 repeat = int(config["experiment.repeat"])
 samples = int(config["experiment.samples"])
 epochs = int(config["experiment.epochs"])
 batch = batch_size = int(config["experiment.batch_size"])    
 arch = config["experiment.arch"]
-num_requests = requests = int(config["experiment.requests"])
-batch_requests = config["experiment.batch_requests"] 
-replicas = config["experiment.replicas"]
-num_gpus = config["experiment.num_gpus"]
+requests = int(config["experiment.requests"])
+batch_requests = bool(config["experiment.batch_requests"])
+replicas = int(config["experiment.replicas"])
+num_gpus = int(config["experiment.num_gpus"])
+# device_name = "cuda" if num_gpus > 0 else "cpu"
+device_name = config["experiment.device"]
 
 
 
-try:
-    model_module = importlib.import_module(f'archs.{arch}')
 
-    model_class = model_module.BuildModel(model_module.input_shape)
-except:
-    Console.error(f"Model {arch} not defined in the archs directory")
 
-input_shape  = model_class.input_shape
-output_shape = model_class.output_shape
-dtype = model_class.dtype
+model_module = importlib.import_module(f'archs.{arch}')
+Model = model_module.Model()
 
-model = model_class.model_batch(batch)
+input_shape  = Model.input_shape
+output_shape = Model.output_shape
+dtype = Model.dtype
 
 
 print_gpu_device_properties()
@@ -93,12 +93,15 @@ StopWatch.stop("benchmark-init")
 
 StopWatch.start("benchmark-setup")
 # smartredis requires numpy arrays
-data = np.array(torch.rand(model.model_batch['shape']), 
-                dtype=dtype)
+#data = np.array(torch.rand(Model.model_batch(batch)['shape']), 
+#                dtype=dtype)
+
+
+data = torch.rand(Model.model_batch(batch)['shape'], dtype=dtype).numpy()
 
 
 # Define model
-torch_model = model_class
+torch_model = Model
 print(torch_model)
 
 # Load the TorchScript model
